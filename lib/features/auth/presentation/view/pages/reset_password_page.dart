@@ -7,8 +7,8 @@ import 'package:coaching_app/core/widgets/custom_button.dart';
 import 'package:coaching_app/core/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
-class ForgetPasswordPage extends StatelessWidget {
-  const ForgetPasswordPage({super.key});
+class ResetPasswordPage extends StatelessWidget {
+  const ResetPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ForgetPasswordPage extends StatelessWidget {
                 children: [
                   arrowIcon(onPressed: () {}),
                   Text(
-                    'Forget Password',
+                    'Reset Password',
                     style:
                         TextStyles.semiBold32(context, color: AppColors.black),
                   ),
@@ -32,12 +32,12 @@ class ForgetPasswordPage extends StatelessWidget {
               ),
               SizedBox(height: context.height * 0.06),
               Text(
-                'Mail Address',
+                'Enter New Password',
                 style: TextStyles.semiBold32(context,
                     color: AppColors.primaryColor),
               ),
               Text(
-                'Enter the email address associated \n with your account',
+                'Your new password must be different \n from previously used password   ',
                 style: TextStyles.regular16_120(context, color: AppColors.grey),
                 textAlign: TextAlign.center,
               ),
@@ -45,12 +45,23 @@ class ForgetPasswordPage extends StatelessWidget {
                   textFieldInputModel: TextFieldInputModel(
                 context: context,
                 controller: TextEditingController(),
-                prefixIcon: Icons.email,
-                textHint: 'Email',
+                textHint: 'Password',
+                isSecure: true,
+                postfixIcon: Icons.visibility_off_outlined,
+                onSuffixIconPressed: () {},
+              )),
+              customTextField(
+                  textFieldInputModel: TextFieldInputModel(
+                context: context,
+                controller: TextEditingController(),
+                textHint: 'Confirm Password',
+                isSecure: true,
+                postfixIcon: Icons.visibility_off_outlined,
+                onSuffixIconPressed: () {},
               )),
               SizedBox(height: context.height * 0.06),
               customButton(
-                  context: context, text: 'Recover Password', onPressed: () {}),
+                  context: context, text: 'Continue', onPressed: () {}),
             ],
           ),
         ),
