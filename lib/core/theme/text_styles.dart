@@ -123,8 +123,9 @@ class TextStyles {
     );
   }
 
-  static TextStyle semiBold32(BuildContext context) {
+  static TextStyle semiBold32(BuildContext context,{required Color color}) {
     return TextStyle(
+      color: color,
       fontWeight: FontWeight.w600,
       fontStyle: FontStyle.italic,
 
@@ -133,8 +134,9 @@ class TextStyles {
     );
   }
 
-  static TextStyle regular16_120(BuildContext context) {
+  static TextStyle regular16_120(BuildContext context,{required Color color}) {
     return TextStyle(
+      color: color,
       fontStyle: FontStyle.italic,
 
       fontWeight: FontWeight.w400,
