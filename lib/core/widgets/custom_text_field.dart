@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 
 Widget customTextField({required TextFieldInputModel textFieldInputModel}) {
   return TextFormField(
-    
       controller: textFieldInputModel.controller,
       inputFormatters: textFieldInputModel.textInputFormatter,
       validator: textFieldInputModel.validator,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(0),
+          contentPadding: EdgeInsets.all(0),
           hintText: textFieldInputModel.textHint,
           suffixIcon: IconButton(
             icon: Icon(

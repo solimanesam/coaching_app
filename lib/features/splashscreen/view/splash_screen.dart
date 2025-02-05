@@ -1,5 +1,4 @@
 import 'package:coaching_app/core/theme/app_colors.dart';
-import 'package:coaching_app/features/auth/presentation/view/pages/forget_password_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -11,7 +10,7 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        'forgetpassword',
+        'TellUsAboutYouPage',
         (route) => false,
       );
     });
