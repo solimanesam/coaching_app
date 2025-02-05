@@ -7,6 +7,7 @@ void main() {
     debugShowCheckedModeBanner: false,
     initialRoute: getInitRoute,
     onGenerateRoute: onGenerateRoute,
+    
   );
   runApp(app);
 }

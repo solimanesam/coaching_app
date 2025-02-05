@@ -2,8 +2,8 @@ import 'package:coaching_app/core/helper_function/get_responsive_font_size.dart'
 import 'package:flutter/material.dart';
 
 class TextStyles {
-  static TextStyle semiBold16(
-      {required BuildContext context, required Color color}) {
+  static TextStyle semiBold16(BuildContext context, 
+      { required Color color}) {
     return TextStyle(
       color: color,
       fontWeight: FontWeight.w600,

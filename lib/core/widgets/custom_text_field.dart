@@ -9,6 +9,7 @@ Widget customTextField({required TextFieldInputModel textFieldInputModel}) {
       controller: textFieldInputModel.controller,
       inputFormatters: textFieldInputModel.textInputFormatter,
       validator: textFieldInputModel.validator,
+      obscureText: textFieldInputModel.isSecure,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(0),
           hintText: textFieldInputModel.textHint,
