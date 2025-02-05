@@ -93,8 +93,9 @@ class TextStyles {
     );
   }
 
-  static TextStyle semiBold20(BuildContext context) {
+  static TextStyle semiBold20(BuildContext context,{required Color color}) {
     return TextStyle(
+      color: color,
       fontWeight: FontWeight.w600,
       fontStyle: FontStyle.italic,
 

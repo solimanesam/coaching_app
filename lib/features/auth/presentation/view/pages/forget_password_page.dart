@@ -1,4 +1,5 @@
 import 'package:coaching_app/core/extentions/responsive_extentions.dart';
+import 'package:coaching_app/core/models/text_field_input_model.dart';
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/theme/text_styles.dart';
 import 'package:coaching_app/core/widgets/custom_app_bar.dart';
@@ -35,7 +36,11 @@ class ForgetPasswordPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             customTextField(
-                context: context, hint: 'Email', icon: Icons.email_outlined),
+                textFieldInputModel: TextFieldInputModel(
+                    context: context,
+                    controller: TextEditingController(),
+                    textHint: 'Email',
+                    prefixIcon: Icons.email_outlined)),
             SizedBox(height: context.height * 0.06),
             customButton(
                 customButtonInputModel: CustomButtonInputModel(
