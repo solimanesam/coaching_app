@@ -1,7 +1,7 @@
 import 'package:coaching_app/core/extentions/responsive_extentions.dart';
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/theme/text_styles.dart';
-import 'package:coaching_app/core/widgets/arrow_icon.dart';
+import 'package:coaching_app/core/widgets/custom_app_bar.dart';
 import 'package:coaching_app/core/widgets/custom_button.dart';
 import 'package:coaching_app/core/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -17,16 +17,12 @@ class ForgetPasswordPage extends StatelessWidget {
         child: Column(
           spacing: 30,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                arrowIcon(onPressed: () {}),
-                Text(
-                  'Forget Password',
-                  style: TextStyles.semiBold32(context, color: AppColors.black),
-                ),
-              ],
-            ),
+            customAppBar(
+                customAppBarInputModel: CustomAppBarInputModel(
+              appBarTitle: 'Forget Password',
+              context: context,
+              iconButtonOnPressedFunction: () {},
+            )),
             SizedBox(height: context.height * 0.06),
             Text(
               'Mail Address',
@@ -42,7 +38,11 @@ class ForgetPasswordPage extends StatelessWidget {
                 context: context, hint: 'Email', icon: Icons.email_outlined),
             SizedBox(height: context.height * 0.06),
             customButton(
-                context: context, text: 'Recover Password', onPressed: () {}),
+                customButtonInputModel: CustomButtonInputModel(
+              context: context,
+              buttonName: 'Recover Password',
+              onPressedFunction: () {},
+            )),
           ],
         ),
       ),
