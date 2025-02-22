@@ -9,7 +9,10 @@ Widget customTextField({required TextFieldInputModel textFieldInputModel}) {
       inputFormatters: textFieldInputModel.textInputFormatter,
       validator: textFieldInputModel.validator,
       obscureText: textFieldInputModel.isSecure,
+      
       decoration: InputDecoration(
+        filled: true,
+        fillColor: textFieldInputModel.backgroundColor ?? AppColors.white,
           contentPadding: EdgeInsets.all(0),
           hintText: textFieldInputModel.textHint,
           suffixIcon: IconButton(

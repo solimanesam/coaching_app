@@ -7,6 +7,7 @@ class TextFieldInputModel {
       required this.controller,
       required this.textHint,
       this.textInputFormatter,
+      this.backgroundColor,
       this.prefixIcon,
       this.onSuffixIconPressed,
       this.validator,
@@ -16,6 +17,7 @@ class TextFieldInputModel {
   final TextEditingController controller;
   final String textHint;
   final bool isSecure;
+  final Color? backgroundColor;
   final BuildContext context;
   final IconData? prefixIcon;
   final IconData? postfixIcon;

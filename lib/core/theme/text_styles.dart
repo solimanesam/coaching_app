@@ -1,9 +1,20 @@
 import 'package:coaching_app/core/helper_function/get_responsive_font_size.dart';
+import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class TextStyles {
-  static TextStyle semiBold16(BuildContext context, 
-      { required Color color}) {
+  static TextStyle customFontForCap(
+    BuildContext context,
+  ) {
+    return TextStyle(
+        color: AppColors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: getResponsiveFontSize(context: context, fontSize: 20),
+        height: 1.5, // 150%
+        fontFamily: 'serif');
+  }
+
+  static TextStyle semiBold16(BuildContext context, {required Color color}) {
     return TextStyle(
       color: color,
       fontWeight: FontWeight.w600,
@@ -93,7 +104,7 @@ class TextStyles {
     );
   }
 
-  static TextStyle semiBold20(BuildContext context,{required Color color}) {
+  static TextStyle semiBold20(BuildContext context, {required Color color}) {
     return TextStyle(
       color: color,
       fontWeight: FontWeight.w600,
@@ -124,7 +135,7 @@ class TextStyles {
     );
   }
 
-  static TextStyle semiBold32(BuildContext context,{required Color color}) {
+  static TextStyle semiBold32(BuildContext context, {required Color color}) {
     return TextStyle(
       color: color,
       fontWeight: FontWeight.w600,
@@ -134,8 +145,18 @@ class TextStyles {
       height: 1.5, // 150%
     );
   }
+  static TextStyle quarterBold32(BuildContext context, {required Color color}) {
+    return TextStyle(
+      color: color,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.italic,
 
-  static TextStyle regular16_120(BuildContext context,{required Color color}) {
+      fontSize: getResponsiveFontSize(context: context, fontSize: 32),
+      height: 1.5, // 150%
+    );
+  }
+
+  static TextStyle regular16_120(BuildContext context, {required Color color}) {
     return TextStyle(
       color: color,
       fontStyle: FontStyle.italic,
