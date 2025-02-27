@@ -54,9 +54,20 @@ class TextStyles {
     );
   }
 
-  static TextStyle semiBold18(BuildContext context) {
+  static TextStyle semiBold18({required BuildContext context, required Color color}) {
     return TextStyle(
+      color: color,
       fontWeight: FontWeight.w600,
+      fontStyle: FontStyle.italic,
+
+      fontSize: getResponsiveFontSize(context: context, fontSize: 18),
+      height: 1.5, // 150%
+    );
+  }
+   static TextStyle quarterBold18({required BuildContext context, required Color color}) {
+    return TextStyle(
+      color: color,
+      fontWeight: FontWeight.w400,
       fontStyle: FontStyle.italic,
 
       fontSize: getResponsiveFontSize(context: context, fontSize: 18),

@@ -29,4 +29,29 @@ class ClientBottomNavCubit extends Cubit<ClientBottomNavigationBarState> {
       emit(ClientDashBoardChangeItemState()); // تحديث الحالة
     }
   }
+
+  int selectedContainer = -1;
+
+  pressedbutton(int index) {
+    if (selectedContainer != index) {
+      selectedContainer = index;
+      emit(PressedButton());
+    } else {
+      selectedContainer = -1;
+      emit(PressedButton());
+    }
+  }
+
+  List<String> questions = [
+    'Can I customize my plan?',
+    'How do I create an account?',
+    'How do I track my workouts?',
+    'How do I choose a coach?'
+  ];
+  List<String> answers = [
+    'yes you can do this with your coach',
+    'You can create an account by signing up with your email or phone number in the app and following the registration steps.',
+    'You can track your workouts by logging in to your account and accessing your workout history.',
+    'You can choose a coach from the coaches section in the app.'
+  ];
 }

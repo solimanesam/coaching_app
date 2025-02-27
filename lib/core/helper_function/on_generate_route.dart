@@ -8,6 +8,7 @@ import 'package:coaching_app/features/auth/presentation/view/pages/choose_your_g
 import 'package:coaching_app/features/auth/presentation/view/pages/tell_us_about_you_page.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/pages/change_password_page.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/pages/client_bottom_nav.dart';
+import 'package:coaching_app/features/client_dashboard/presentation/view/pages/help_centre.dart';
 import 'package:coaching_app/features/splashscreen/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -44,6 +45,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       case 'changepassword':
       return MaterialPageRoute<dynamic>(
         builder: (BuildContext context) => const ChangePasswordPage(),
+      );
+      case 'helpcenter':
+      return MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => const HelpCenterScreen(),
       );
     // case 'dashboard':
     // return MaterialPageRoute<dynamic>(

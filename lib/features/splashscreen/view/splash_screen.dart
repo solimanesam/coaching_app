@@ -9,9 +9,10 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        'changepassword',
+        'helpcenter',
         (route) => false,
       );
+      
     });
 
     return Container(
