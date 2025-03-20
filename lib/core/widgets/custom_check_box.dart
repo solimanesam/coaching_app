@@ -5,20 +5,22 @@ import 'package:flutter/material.dart';
 
 Widget customCheckBox(
     {required CustomCheckBoxInputModel customCheckBoxInputModel}) {
-  return SizedBox(width: customCheckBoxInputModel.context.width * .80,
+  return SizedBox(
+    width: customCheckBoxInputModel.context.width * .80,
     child: ListTile(
         trailing: Checkbox(
           activeColor: AppColors.primaryColor,
           checkColor: AppColors.black,
           fillColor: WidgetStatePropertyAll(AppColors.grey),
           side: BorderSide(width: 0.0),
-           
-          value: false,
-          onChanged: (value) {},
+          value: customCheckBoxInputModel.value,
+          onChanged: (value) => customCheckBoxInputModel.onChanged,
         ),
         leading: Text(
           customCheckBoxInputModel.checkBoxName,
-          style: TextStyles.semiBold18(customCheckBoxInputModel.context,),
+          style: TextStyles.semiBold18(
+            customCheckBoxInputModel.context,
+          ),
         ),
         shape: ContinuousRectangleBorder(
             borderRadius: BorderRadius.circular(15), side: BorderSide())),
@@ -28,6 +30,12 @@ Widget customCheckBox(
 class CustomCheckBoxInputModel {
   final String checkBoxName;
   final BuildContext context;
+  final bool value;
+  final VoidCallback onChanged;
 
-  CustomCheckBoxInputModel({required this.context, required this.checkBoxName});
+  CustomCheckBoxInputModel(
+      {required this.context,
+      required this.checkBoxName,
+      required this.value,
+      required this.onChanged});
 }

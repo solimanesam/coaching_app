@@ -1,7 +1,7 @@
 import 'package:coaching_app/core/constants/view_constants.dart';
 import 'package:coaching_app/core/widgets/custom_app_bar.dart';
 import 'package:coaching_app/core/widgets/custom_button.dart';
-import 'package:coaching_app/core/widgets/custom_check_box.dart';
+import 'package:coaching_app/features/auth/presentation/view/components/check_boxs_bloc_builder.dart';
 import 'package:flutter/material.dart';
 
 class ChooseYourGoalPage extends StatelessWidget {
@@ -15,19 +15,14 @@ class ChooseYourGoalPage extends StatelessWidget {
         children: [
           customAppBar(
               customAppBarInputModel: CustomAppBarInputModel(
-            appBarTitle: 'Choose Your Goal',
+            appBarTitle: ViewConstants.chooseYourGoalPageAppBarTitle,
             context: context,
             iconButtonOnPressedFunction: () => Navigator.pop(context),
           )),
-          Column(
-            spacing: 30.0,
-              children: List.generate(
-                  4,
-                  (index) => customCheckBox(
-                      customCheckBoxInputModel: CustomCheckBoxInputModel(
-                          context: context,
-                          checkBoxName: ViewConstants
-                              .chooseYourGoalPageCheckBoxSNames[index])))),
+          CheckBoxsBlocBuilder(
+            count: 4,
+            checkBoxsNames: ViewConstants.chooseYourGoalPageCheckBoxSNames,
+          ),
           customButton(
               customButtonInputModel: CustomButtonInputModel(
             context: context,

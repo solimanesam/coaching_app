@@ -16,7 +16,7 @@ class FillYourProfilePage extends StatelessWidget {
         children: [
           customAppBar(
               customAppBarInputModel: CustomAppBarInputModel(
-            appBarTitle: 'Fill Your Profile',
+            appBarTitle: ViewConstants.fillYourProfilePageAppBarTitle,
             context: context,
             iconButtonOnPressedFunction: () => Navigator.pop(context),
           )),
