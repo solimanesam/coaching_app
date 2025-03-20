@@ -6,13 +6,13 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // تأخير الانتقال بعد 2 ثانية
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushNamedAndRemoveUntil(
         context,
-        'TellUsAboutYouPage',
+        'helpcenter',
         (route) => false,
       );
+      
     });
 
     return Container(

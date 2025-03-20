@@ -18,9 +18,7 @@ Widget customCheckBox(
         ),
         leading: Text(
           customCheckBoxInputModel.checkBoxName,
-          style: TextStyles.semiBold18(
-            customCheckBoxInputModel.context,
-          ),
+          style: TextStyles.semiBold18(context: customCheckBoxInputModel.context,color: AppColors.black),
         ),
         shape: ContinuousRectangleBorder(
             borderRadius: BorderRadius.circular(15), side: BorderSide())),

@@ -8,7 +8,11 @@ Widget customTextField({required TextFieldInputModel textFieldInputModel}) {
       controller: textFieldInputModel.controller,
       inputFormatters: textFieldInputModel.textInputFormatter,
       validator: textFieldInputModel.validator,
+      obscureText: textFieldInputModel.isSecure,
+      
       decoration: InputDecoration(
+        filled: true,
+        fillColor: textFieldInputModel.backgroundColor ?? AppColors.white,
           contentPadding: EdgeInsets.all(0),
           hintText: textFieldInputModel.textHint,
           suffixIcon: IconButton(

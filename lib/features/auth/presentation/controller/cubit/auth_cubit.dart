@@ -12,12 +12,31 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit() : super(const AuthState());
 
+  isActive(int active){
+    emit(AuthState(active: active));
+  }
+
+  isSecureActive(bool isSecure) {
+    if (isSecure == true) {
+      isSecure = false;
+    } else {
+      isSecure = true;
+    }
+    print(isSecure);
+    emit(
+      AuthState(isSecure: isSecure),
+    );
+  }
+
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNumerController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  
+
 //   Future<void> signUp() async {
 //     if (formkey.currentState!.validate()) {
 //       emit(const AuthState(signUpState: RequestStateEnum.loading));
