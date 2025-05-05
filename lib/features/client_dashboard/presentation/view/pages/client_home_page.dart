@@ -6,11 +6,12 @@ import 'package:coaching_app/features/client_dashboard/presentation/view/pages/c
 import 'package:flutter/material.dart';
 
 class ClientHomePage extends StatelessWidget {
-  ClientHomePage({super.key});
-  List names = ['Ahmed Kamal', 'Ali Mohamed'];
-  List images = ['assets/1.jpg', 'assets/2.jpg'];
+ const ClientHomePage({super.key});
+ 
   @override
   Widget build(BuildContext context) {
+     List names = ['Ahmed Kamal', 'Ali Mohamed'];
+  List images = ['assets/1.jpg', 'assets/2.jpg'];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
       child: Column(
