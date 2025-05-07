@@ -1,5 +1,7 @@
 import 'package:coaching_app/core/theme/app_colors.dart';
+import 'package:coaching_app/features/coach_dashboard/view/pages/fees_and_payment.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -7,11 +9,12 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        'helpcenter',
-        (route) => false,
-      );
+      // Navigator.pushNamedAndRemoveUntil(
+      //   context,
+      //   'helpcenter',
+      //   (route) => false,
+      // );
+      Get.to(() => FeesAndPayment());
       
     });
 

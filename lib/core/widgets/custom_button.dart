@@ -8,7 +8,7 @@ MaterialButton customButton(
   return MaterialButton(
     onPressed: customButtonInputModel.onPressedFunction,
     height: customButtonInputModel.context.height * 0.06,
-    minWidth: customButtonInputModel.context.width * 0.8,
+    minWidth: customButtonInputModel.width ?? customButtonInputModel.context.width * 0.8,
     color: AppColors.primaryColor,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     child: Text(customButtonInputModel.buttonName,
@@ -21,9 +21,10 @@ class CustomButtonInputModel {
   final BuildContext context;
   final String buttonName;
   final VoidCallback onPressedFunction;
-
+  final double? width;
   CustomButtonInputModel(
       {required this.context,
+      this.width,
       required this.buttonName,
       required this.onPressedFunction});
 }
