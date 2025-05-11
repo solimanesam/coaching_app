@@ -1,6 +1,7 @@
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/theme/text_styles.dart';
 import 'package:coaching_app/core/widgets/arrow_back_button.dart';
+import 'package:coaching_app/features/coach_dashboard/view/components/bar_chart.dart';
 import 'package:coaching_app/features/coach_dashboard/view/components/earnings_container.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +42,11 @@ class EarningsAndPerformancePage extends StatelessWidget {
               'Total Clients This Month',
               style: TextStyles.quarterBold25(context, color: AppColors.black),
             ),
-            earningsContainer(context: context, text: '20 client')
+            earningsContainer(context: context, text: '20 client'),
+            SizedBox(
+              height: 20,
+            ),
+            barChart(),
           ],
         ),
       ),
