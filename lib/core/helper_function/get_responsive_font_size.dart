@@ -12,11 +12,11 @@ double getResponsiveFontSize(
 }
 
 double getScaleFactor({required BuildContext context}) {
-  if (context.width < 600) {
-    return context.width / 400;
-  } else if (context.width < 900) {
-    return context.width / 700;
+  if (context.widthResponsive < 600) {
+    return context.widthResponsive / 400;
+  } else if (context.widthResponsive < 900) {
+    return context.widthResponsive / 700;
   } else {
-    return context.width / 1000;
+    return context.widthResponsive / 1000;
   }
 }

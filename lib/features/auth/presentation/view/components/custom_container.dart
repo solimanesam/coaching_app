@@ -7,7 +7,7 @@ Widget customContainer(BuildContext context, {required String text , required Co
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      width: context.width * 0.4,
+      width: context.widthResponsive * 0.4,
       decoration: BoxDecoration(
         border: Border.all(color:color),
         color: AppColors.primaryColor,

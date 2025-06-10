@@ -8,8 +8,8 @@ Row earningsContainer({required BuildContext context, required String text}) {
     children: [
       Spacer(),
       Container(
-        width: context.width * 0.5,
-        height: context.height * 0.06,
+        width: context.widthResponsive * 0.5,
+        height: context.heightReponsive * 0.06,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: AppColors.primaryColor,

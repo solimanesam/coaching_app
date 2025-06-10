@@ -42,7 +42,7 @@ class FeesAndPayment extends StatelessWidget {
                   context: context,
                   buttonName: 'pay now',
                   onPressedFunction: () {},
-                  width: context.width * 0.5,
+                  width: context.widthResponsive * 0.5,
                 )),
               ],
             ),

@@ -1,16 +1,20 @@
-import 'package:coaching_app/core/helper_function/get_init_route.dart';
-import 'package:coaching_app/core/helper_function/on_generate_route.dart';
+import 'package:coaching_app/core/services/app_binidings.dart';
+import 'package:coaching_app/core/services/dependency_injection.dart';
 import 'package:coaching_app/core/theme/app_theme.dart';
+import 'package:coaching_app/features/splashscreen/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  DependencyInjection.setupLocator();
   GetMaterialApp app = GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    initialRoute: getInitRoute,
-    onGenerateRoute: onGenerateRoute,
+    home: SplashScreen(),
+   // initialRoute: getInitRoute,
+   // onGenerateRoute: onGenerateRoute,
+    initialBinding: AppBinidings(),
     theme: appTheme,
-    
   );
   runApp(app);
 }

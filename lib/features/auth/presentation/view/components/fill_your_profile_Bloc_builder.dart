@@ -43,7 +43,7 @@ class FillYourProfileBlocBuilder extends StatelessWidget {
         3,
         (index) => Padding(
               padding:
-                  EdgeInsets.symmetric(horizontal: context.width * .10),
+                  EdgeInsets.symmetric(horizontal: context.widthResponsive * .10),
               child: customTextField(
                   textFieldInputModel: TextFieldInputModel(
                 context: context,

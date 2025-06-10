@@ -46,7 +46,7 @@ MaterialButton miniButton(
     return MaterialButton(
         onPressed: () => onTap,
         color: AppColors.primaryColor,
-        minWidth: context.width * .2,
+        minWidth: context.widthResponsive * .2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Text(
           name,

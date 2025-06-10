@@ -34,10 +34,10 @@ class CapDetails extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Container(
-                height: context.width * .4,
-                width: context.width * .4,
+                height: context.widthResponsive * .4,
+                width: context.widthResponsive * .4,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(context.width * .25),
+                    borderRadius: BorderRadius.circular(context.widthResponsive * .25),
                     image: DecorationImage(
                         image: AssetImage(image), fit: BoxFit.cover)),
               ),
