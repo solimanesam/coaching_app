@@ -1,4 +1,5 @@
 import 'package:coaching_app/core/constants/cache_constant.dart';
+import 'package:coaching_app/core/constants/secret_keys.dart';
 import 'package:coaching_app/core/services/cache_service.dart';
 import 'package:coaching_app/core/services/dependency_injection.dart';
 import 'package:dio/dio.dart';
@@ -107,7 +108,7 @@ class ApiService {
 
       case ApiHeadersEnum.paymentHeaders:
         return {
-          'Authorization': 'Bearer ${'SecretKeys.stripeSecretKey'}',
+          'Authorization': 'Bearer ${SecretKeys.stripeSecretKey}',
         };
     }
   }
