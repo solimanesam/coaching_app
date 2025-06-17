@@ -1,118 +1,140 @@
+import 'package:coaching_app/core/constants/cache_constant.dart';
+import 'package:coaching_app/core/services/cache_service.dart';
+import 'package:coaching_app/core/services/dependency_injection.dart';
 import 'package:dio/dio.dart';
 
 class ApiService {
   final Dio dio;
 
-  ApiService({Dio? dioClient}) : dio = dioClient ?? Dio();
+  ApiService(this.dio);
 
-  // GET
-  Future<Response> get(
-    String url, {
-    String? token,
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? queryParameters,
+  // ✅ POST
+  Future<Map<String, dynamic>> post({
+    required ApiServiceInputModel apiServiceInputModel,
   }) async {
-    try {
-      return await dio.get(
-        url,
-        queryParameters: queryParameters,
-        options: Options(headers: _buildHeaders(token, headers)),
-      );
-    } catch (e) {
-      throw _handleError(e);
-    }
+    final response = await dio.post(
+      apiServiceInputModel.url,
+      data: apiServiceInputModel.body,
+      options: _buildOptions(apiServiceInputModel),
+    );
+    return response.data;
   }
 
-  // POST
-  Future<Response> post(
-    String url, {
-    String? token,
-    Map<String, dynamic>? headers,
-    dynamic data,
-    bool isJson = true,
+  // ✅ GET
+  Future<Map<String, dynamic>> get({
+    required ApiServiceInputModel apiServiceInputModel,
   }) async {
-    try {
-      return await dio.post(
-        url,
-        data: data,
-        options: Options(
-          headers: _buildHeaders(token, headers),
-          contentType: isJson
-              ? Headers.jsonContentType
-              : Headers.formUrlEncodedContentType,
-        ),
-      );
-    } catch (e) {
-      throw _handleError(e);
-    }
+    final response = await dio.get(
+      apiServiceInputModel.url,
+      queryParameters: apiServiceInputModel.body,
+      options: _buildOptions(apiServiceInputModel),
+    );
+    return response.data;
   }
 
-  // POST with FormData (e.g., for images)
-  Future<Response> postFormData(
-    String url, {
-    required String token,
+  // ✅ PATCH
+  Future<Map<String, dynamic>> patch({
+    required ApiServiceInputModel apiServiceInputModel,
+  }) async {
+    final response = await dio.patch(
+      apiServiceInputModel.url,
+      data: apiServiceInputModel.body,
+      options: _buildOptions(apiServiceInputModel),
+    );
+    return response.data;
+  }
+
+  // ✅ POST FormData
+  Future<Map<String, dynamic>> postFormData({
+    required String url,
     required FormData formData,
-    Map<String, dynamic>? headers,
+    required ApiHeadersEnum headersType,
   }) async {
-    try {
-      return await dio.post(
-        url,
-        data: formData,
-        options: Options(
-          headers: _buildHeaders(token, headers),
-          contentType: Headers.multipartFormDataContentType,
-        ),
-      );
-    } catch (e) {
-      throw _handleError(e);
-    }
+    final response = await dio.post(
+      url,
+      data: formData,
+      options: Options(
+        headers: _resolveHeaders(headersType),
+        contentType: Headers.multipartFormDataContentType,
+      ),
+    );
+    return response.data;
   }
 
-  // PATCH
-  Future<Response> patch(
-    String url, {
-    required String token,
-    Map<String, dynamic>? headers,
-    dynamic data,
-    bool isJson = true,
+  // ✅ PATCH FormData
+  Future<Map<String, dynamic>> patchFormData({
+    required String url,
+    required FormData formData,
+    required ApiHeadersEnum headersType,
   }) async {
-    try {
-      return await dio.patch(
-        url,
-        data: data,
-        options: Options(
-          headers: _buildHeaders(token, headers),
-          contentType: isJson
-              ? Headers.jsonContentType
-              : Headers.formUrlEncodedContentType,
-        ),
-      );
-    } catch (e) {
-      throw _handleError(e);
-    }
+    final response = await dio.patch(
+      url,
+      data: formData,
+      options: Options(
+        headers: _resolveHeaders(headersType),
+        contentType: Headers.multipartFormDataContentType,
+      ),
+    );
+    return response.data;
   }
 
-  // Helpers
-
-  Map<String, dynamic> _buildHeaders(
-      String? token, Map<String, dynamic>? headers) {
-    final Map<String, dynamic> finalHeaders = {
-      'Accept': 'application/json',
-      ...?headers,
-    };
-
-    if (token != null && token.trim().isNotEmpty) {
-      finalHeaders['Authorization'] = 'Bearer $token';
-    }
-
-    return finalHeaders;
+  // ✅ بناء Options من الـ model
+  Options _buildOptions(ApiServiceInputModel model) {
+    return Options(
+      headers: _resolveHeaders(model.apiHeaders),
+      contentType: switch (model.apiContentType) {
+        ApiContentTypeEnum.applicationJson => Headers.jsonContentType,
+        ApiContentTypeEnum.applicationXWwwFormUrlencoded =>
+          Headers.formUrlEncodedContentType,
+        ApiContentTypeEnum.multipartFormData =>
+          Headers.multipartFormDataContentType,
+      },
+    );
   }
 
-  Exception _handleError(dynamic error) {
-    if (error is DioException) {
-      final message = error.response?.data ?? error.message;
-      return Exception('Dio Error: $message');
+  // ✅ حل headers حسب نوعه
+  Map<String, dynamic> _resolveHeaders(ApiHeadersEnum type) {
+    switch (type) {
+      case ApiHeadersEnum.backEndHeadersWithoutToken:
+        return {'Accept': 'application/json'};
+
+      case ApiHeadersEnum.backEndHeadersWithToken:
+        return {
+          'Accept': 'application/json',
+          'Authorization':
+              'Bearer ${locator<BaseCache>().getStringFromCache(key: CacheConstant.tokenKey)}',
+        };
+
+      case ApiHeadersEnum.paymentHeaders:
+        return {
+          'Authorization': 'Bearer ${'SecretKeys.stripeSecretKey'}',
+        };
     }
-    return Exception('Unexpected error: $error');
   }
+}
+
+enum ApiContentTypeEnum {
+  applicationJson,
+  applicationXWwwFormUrlencoded,
+  multipartFormData,
+}
+
+enum ApiHeadersEnum {
+  backEndHeadersWithoutToken,
+  backEndHeadersWithToken,
+  paymentHeaders,
+}
+
+class ApiServiceInputModel {
+  final String url;
+  final dynamic body;
+  final ApiHeadersEnum apiHeaders;
+  final ApiContentTypeEnum apiContentType;
+
+  ApiServiceInputModel({
+    required this.url,
+    this.body,
+    this.apiHeaders = ApiHeadersEnum.backEndHeadersWithoutToken,
+    this.apiContentType = ApiContentTypeEnum.applicationJson,
+  });
 }

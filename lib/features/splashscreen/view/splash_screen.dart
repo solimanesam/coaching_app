@@ -1,5 +1,5 @@
+import 'package:coaching_app/core/helper_function/get_init_route.dart';
 import 'package:coaching_app/core/theme/app_colors.dart';
-import 'package:coaching_app/features/auth/presentation/view/pages/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
@@ -8,8 +8,9 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 2), () {
-      Get.to(() => SignUpPage());
+    Future.delayed(const Duration(seconds: 2), () async {
+      final route = await getInitRoute;
+      Get.to(() => route);
     });
 
     return Container(

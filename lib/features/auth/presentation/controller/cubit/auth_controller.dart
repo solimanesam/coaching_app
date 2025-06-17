@@ -1,4 +1,5 @@
 import 'package:coaching_app/core/utils/enums.dart';
+import 'package:coaching_app/core/widgets/custom_snake_bar.dart';
 import 'package:coaching_app/features/auth/domain/repos/base_auth_repo.dart';
 import 'package:coaching_app/features/auth/presentation/view/pages/log_in_page.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ class AuthController extends GetxController {
   AuthController({required this.baseAuthRepo});
 
   final BaseAuthRepo baseAuthRepo;
+
   RxBool isSecureController = true.obs;
 ////////////////////////////////////
   isSecureActive() {
@@ -48,30 +50,30 @@ class AuthController extends GetxController {
   void forgetPassword() async {
     if (forgetPassFormkey.currentState!.validate()) {
       forgetPasswordState = RequestStateEnum.loading;
-  update();
+      update();
       final result = await baseAuthRepo.forgetPassword(
           authParameter: AuthParameter(email: forgetPassEmailController.text));
       result.fold((l) {
         forgetPasswordState = RequestStateEnum.failed;
         forgetPasswordMessage = l.message;
-        Get.snackbar('error', l.message);
+        AppSnackBar.show(message: l.message, type: SnackBarType.error);
         print(l.message);
       }, (r) {
         forgetPasswordState = RequestStateEnum.success;
-        Get.snackbar(
-            '', 'If that email is registered you will receive a link.');
+        AppSnackBar.show(
+            message: 'If that email is registered you will receive a link',
+            type: SnackBarType.success);
 
         print('success');
       });
-        update();
-
+      update();
     }
   }
 
   void logIn() async {
     if (logInFormkey.currentState!.validate()) {
-          logInState = RequestStateEnum.loading;
-update();
+      logInState = RequestStateEnum.loading;
+      update();
       final result = await baseAuthRepo.logIn(
           authParameter: AuthParameter(
               email: logInEmailController.text,
@@ -79,14 +81,12 @@ update();
       result.fold((l) {
         logInState = RequestStateEnum.failed;
         logInMessage = l.message;
-        Get.snackbar('error', l.message);
+        AppSnackBar.show(message: l.message, type: SnackBarType.error);
       }, (r) {
         logInState = RequestStateEnum.success;
-        final token = r;
-        print(token);
+        AppSnackBar.show(message: 'Success', type: SnackBarType.success);
       });
-        update();
-
+      update();
     }
   }
 
@@ -106,14 +106,15 @@ update();
               isCoach: iscoach));
       result.fold((l) {
         signUpState = RequestStateEnum.failed;
-        Get.snackbar('error', l.message);
+        AppSnackBar.show(message: l.message, type: SnackBarType.error);
       }, (r) {
         signUpState = RequestStateEnum.success;
-        Get.snackbar('Success', 'Your account has been created successfully');
+        AppSnackBar.show(
+            message: 'Your account has been created successfully',
+            type: SnackBarType.success);
         Get.to(() => LogInPage());
       });
-        update();
-
+      update();
     }
   }
 

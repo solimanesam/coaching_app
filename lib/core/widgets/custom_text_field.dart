@@ -9,8 +9,13 @@ Widget customTextField({required TextFieldInputModel textFieldInputModel}) {
       inputFormatters: textFieldInputModel.textInputFormatter,
       validator: textFieldInputModel.validator,
       obscureText: textFieldInputModel.isSecure,
+      cursorColor: AppColors.primaryColor,
       
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: BorderSide(color: AppColors.black),
+          ),
         filled: true,
         fillColor: textFieldInputModel.backgroundColor ?? AppColors.white,
           contentPadding: EdgeInsets.all(0),

@@ -1,9 +1,10 @@
 import 'package:coaching_app/core/errors/failures.dart';
+import 'package:coaching_app/features/auth/data/models/auth_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class BaseAuthRepo {
   Future<Either<Failure, Unit>> signUp({required AuthParameter authParameter});
-  Future<Either<Failure, String>> logIn({required AuthParameter authParameter});
+  Future<Either<Failure, AuthModel>> logIn({required AuthParameter authParameter});
   Future<Either<Failure, Unit>> forgetPassword(
       {required AuthParameter authParameter});
 }
