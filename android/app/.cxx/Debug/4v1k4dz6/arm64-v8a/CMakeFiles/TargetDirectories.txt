@@ -1,0 +1,2 @@
+D:/flutter projects/coaching_app/android/app/.cxx/Debug/4v1k4dz6/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/flutter projects/coaching_app/android/app/.cxx/Debug/4v1k4dz6/arm64-v8a/CMakeFiles/rebuild_cache.dir

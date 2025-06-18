@@ -1,12 +1,13 @@
 import 'package:coaching_app/core/widgets/custom_check_box.dart';
-import 'package:coaching_app/features/auth/presentation/controller/cubit/client_information_cubit.dart';
+import 'package:coaching_app/features/auth/presentation/controller/cubit/client_information.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
-class CheckBoxsBlocBuilder extends StatelessWidget {
+class CheckBoxsGetBuilder extends StatelessWidget {
   final int count;
   final List<String> checkBoxsNames;
-  const CheckBoxsBlocBuilder({
+
+  const CheckBoxsGetBuilder({
     super.key,
     required this.count,
     required this.checkBoxsNames,
@@ -14,22 +15,23 @@ class CheckBoxsBlocBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ClientInformationCubit, ClientInformationState>(
-      builder: (context, state) {
-        final ClientInformationCubit controller =
-            context.read<ClientInformationCubit>();
-        return Column(
-            spacing: 30.0,
-            children: List.generate(
-                count,
-                (index) => customCheckBox(
-                    customCheckBoxInputModel: CustomCheckBoxInputModel(
-                        context: context,
-                        checkBoxName: checkBoxsNames[index],
-                        value: index == state.selectedCheckBox,
-                        onChanged:
-                            controller.changeStateOfCheckBox(index: index)))));
-      },
-    );
+    final controller = Get.find<ClientInformationController>();
+    return Obx(() {
+      return Column(
+        children: List.generate(count, (index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15.0),
+            child: customCheckBox(
+              customCheckBoxInputModel: CustomCheckBoxInputModel(
+                context: context,
+                checkBoxName: checkBoxsNames[index],
+                value: controller.selectedCheckBox.value == index,
+                onChanged: () => controller.changeStateOfCheckBox(index),
+              ),
+            ),
+          );
+        }),
+      );
+    });
   }
 }

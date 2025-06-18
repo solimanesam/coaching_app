@@ -166,6 +166,16 @@ class TextStyles {
       height: 1.5, // 150%
     );
   }
+   static TextStyle quarterBold25(BuildContext context, {required Color color}) {
+    return TextStyle(
+      color: color,
+      fontWeight: FontWeight.w400,
+      fontStyle: FontStyle.italic,
+
+      fontSize: getResponsiveFontSize(context: context, fontSize: 25),
+      height: 1.5, // 150%
+    );
+  }
 
   static TextStyle regular16_120(BuildContext context, {required Color color}) {
     return TextStyle(

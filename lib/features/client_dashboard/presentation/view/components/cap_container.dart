@@ -12,7 +12,7 @@ GestureDetector capContainer(
     onTap: onTap,
     child: Container(
       width: double.infinity,
-      height: context.height * 0.22,
+      height: context.heightReponsive * 0.22,
       decoration: BoxDecoration(
         image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
         borderRadius: BorderRadius.circular(10),
