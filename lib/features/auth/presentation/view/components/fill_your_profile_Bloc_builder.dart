@@ -1,8 +1,7 @@
 import 'package:coaching_app/core/constants/view_constants.dart';
 import 'package:coaching_app/core/extentions/responsive_extentions.dart';
 import 'package:coaching_app/core/models/text_field_input_model.dart';
-import 'package:coaching_app/core/widgets/custom_app_bar.dart';
-import 'package:coaching_app/core/widgets/custom_button.dart';
+import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/widgets/custom_text_field.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/Client_dashboard_controller.dart';
 import 'package:flutter/material.dart';
