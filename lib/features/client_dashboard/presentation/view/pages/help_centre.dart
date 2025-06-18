@@ -1,6 +1,8 @@
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/theme/text_styles.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/FAQ_details.dart';
+import 'package:coaching_app/features/client_dashboard/presentation/view/components/contact_us_tab_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HelpCenterScreen extends StatelessWidget {
@@ -49,7 +51,7 @@ class HelpCenterScreen extends StatelessWidget {
               child: TabBarView(
                 children: [
                   FaqDetails(),
-                  Center(child: Text("Contact Us Content Here")),
+                  ContactUsTabView()
                 ],
               ),
             ),

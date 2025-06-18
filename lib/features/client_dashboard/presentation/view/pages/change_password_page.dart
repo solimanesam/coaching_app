@@ -53,7 +53,7 @@ class ChangePasswordPage extends StatelessWidget {
                       context: context,
                       postfixIcon: Icons.visibility_off_outlined,
                       controller: TextEditingController(),
-                      textHint: 'confirm nem password')),
+                      textHint: 'confirm new password')),
                       Spacer(),
               customButton(
                   customButtonInputModel: CustomButtonInputModel(

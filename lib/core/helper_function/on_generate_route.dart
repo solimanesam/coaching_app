@@ -1,5 +1,5 @@
+import 'package:coaching_app/features/auth/presentation/view/components/fill_your_profile_Bloc_builder.dart';
 import 'package:coaching_app/features/auth/presentation/view/pages/choose_your_goal_page.dart';
-import 'package:coaching_app/features/auth/presentation/view/pages/fill_your_profile_page.dart';
 import 'package:coaching_app/features/auth/presentation/view/pages/forget_password_page.dart';
 import 'package:coaching_app/features/auth/presentation/view/pages/log_in_page.dart';
 import 'package:coaching_app/features/auth/presentation/view/pages/reset_password_page.dart';
