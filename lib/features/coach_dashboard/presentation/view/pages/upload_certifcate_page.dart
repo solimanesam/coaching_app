@@ -2,7 +2,7 @@ import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/theme/text_styles.dart';
 import 'package:coaching_app/core/widgets/arrow_back_button.dart';
 import 'package:coaching_app/core/widgets/custom_button.dart';
-import 'package:coaching_app/features/coach_dashboard/view/components/file_upload_button.dart';
+import 'package:coaching_app/features/coach_dashboard/presentation/view/components/file_upload_button.dart';
 import 'package:flutter/material.dart';
 
 class UploadCertifcatePage extends StatelessWidget {

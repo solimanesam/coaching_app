@@ -6,6 +6,8 @@ class ApiConstants {
   static const String logInUrl = '${authBaseUrl}token';
   static const String coachesUrl = '${authBaseUrl}Coashes';
   static const String editImageUrl = '${authBaseUrl}EditImage';
+  static const String editProfilrUrl = '${authBaseUrl}EditProfile';
+  static const String getProfileUrl = '${authBaseUrl}GetProfile';
   static const String paymentIntentEndPoint =
       'https://api.stripe.com/v1/payment_intents';
 }

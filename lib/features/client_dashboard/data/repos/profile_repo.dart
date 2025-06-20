@@ -1,18 +1,31 @@
 import 'package:coaching_app/core/errors/failures.dart';
+import 'package:coaching_app/features/client_dashboard/data/data_source/profile_remore_data_source.dart';
 import 'package:coaching_app/features/client_dashboard/domain/entities/profile_entity.dart';
 import 'package:coaching_app/features/client_dashboard/domain/repos/profile_base_repo.dart';
 import 'package:dartz/dartz.dart';
 
-class ProfileRepo extends ProfileBaseRepo{
+class ProfileRepo extends ProfileBaseRepo {
+  final ProfileRemoreDataSource profileRemoreDataSource;
+
+  ProfileRepo({required this.profileRemoreDataSource});
   @override
-  Future<Either<Failure, Unit>> editProfile({required ProfileEntity profileEntity}) {
-    // TODO: implement editProfile
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> editProfile(
+      {required ProfileEntity profileEntity}) async {
+    try {
+      await profileRemoreDataSource.editProfile(profileEntity: profileEntity);
+      return right(unit);
+    } catch (e) {
+      return left(Failure(message: e.toString()));
+    }
   }
 
   @override
-  Future<Either<Failure, ProfileEntity>> getProfile() {
-    // TODO: implement getProfile
-    throw UnimplementedError();
+  Future<Either<Failure, ProfileEntity>> getProfile() async {
+    try {
+      final result = await profileRemoreDataSource.getProfile();
+      return right(result);
+    } catch (e) {
+      return left(Failure(message: e.toString()));
+    }
   }
 }
