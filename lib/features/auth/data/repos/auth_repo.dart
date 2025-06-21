@@ -1,3 +1,4 @@
+import 'package:coaching_app/core/errors/exceptions.dart';
 import 'package:coaching_app/core/errors/failures.dart';
 import 'package:coaching_app/features/auth/data/data_source/auth_local_data_source/auth_local_data_source.dart';
 import 'package:coaching_app/features/auth/data/data_source/remore_data_source/auth_remote_data_source.dart';
@@ -16,7 +17,7 @@ class AuthRepo extends BaseAuthRepo {
     try {
       await authRemoteDataSource.forgetPassword(authParameter: authParameter);
       return right(unit);
-    } catch (e) {
+    } on ServerException catch (e) {
       return left(Failure(message: e.toString()));
     }
   }
@@ -31,8 +32,8 @@ class AuthRepo extends BaseAuthRepo {
       await authLocalDataSource.cacheRole(result.role);
 
       return right(result);
-    } catch (e) {
-      return left(Failure(message: e.toString()));
+    } on ServerException catch (e) {
+      return left(Failure(message: e.message));
     }
   }
 
@@ -42,7 +43,7 @@ class AuthRepo extends BaseAuthRepo {
     try {
       await authRemoteDataSource.signUp(authParameter: authParameter);
       return right(unit);
-    } catch (e) {
+    } on ServerException catch (e) {
       return left(Failure(message: e.toString()));
     }
   }

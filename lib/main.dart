@@ -9,12 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DependencyInjection.setupLocator();
   PaymentDependencyInjection.init();
   await locator<BaseCache>().cacheInitialization();
   Stripe.publishableKey = SecretKeys.stripePublishKey;
+
 
   GetMaterialApp app = GetMaterialApp(
     debugShowCheckedModeBanner: false,
@@ -24,3 +26,5 @@ void main() async {
   );
   runApp(app);
 }
+
+

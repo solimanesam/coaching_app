@@ -8,6 +8,7 @@ import 'package:coaching_app/core/widgets/custom_button.dart';
 import 'package:coaching_app/core/widgets/custom_text_field.dart';
 import 'package:coaching_app/features/auth/presentation/controller/cubit/auth_controller.dart';
 import 'package:coaching_app/features/auth/presentation/view/components/custom_navigation_bar.dart';
+import 'package:coaching_app/features/auth/presentation/view/pages/forget_password_page.dart';
 import 'package:coaching_app/features/auth/presentation/view/pages/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -72,7 +73,7 @@ class LogInPage extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         child: TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, 'forgetpassword');
+                              Get.to(()=> ForgetPasswordPage());
                             },
                             child: Text(
                               'Forget Password ?',

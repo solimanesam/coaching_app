@@ -4,13 +4,13 @@ import 'package:coaching_app/core/services/api_service.dart';
 import 'package:coaching_app/features/auth/data/models/auth_model.dart';
 import 'package:coaching_app/features/auth/domain/repos/base_auth_repo.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 
 abstract class AuthRemoteDataSource {
   Future<Unit> signUp({required AuthParameter authParameter});
   Future<AuthModel> logIn({required AuthParameter authParameter});
   Future<Unit> forgetPassword({required AuthParameter authParameter});
 }
-
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   final ApiService apiService;
@@ -27,8 +27,9 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         ),
       );
       return unit;
-    } catch (e) {
-      throw ServerException(message: e.toString());
+    } on DioException catch (e) {
+      print(e.toString());
+      throw ServerException(message: e.response?.data);
     }
   }
 
@@ -37,7 +38,6 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     try {
       final response = await apiService.post(
         apiServiceInputModel: ApiServiceInputModel(
-          
           url: ApiConstants.logInUrl,
           body: {
             'email': authParameter.email,
@@ -46,8 +46,9 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         ),
       );
       return AuthModel.fromJson(response);
-    } catch (e) {
-      throw ServerException(message: e.toString());
+    } on DioException catch (e) {
+
+      throw ServerException(message: e.response?.data);
     }
   }
 
@@ -58,19 +59,30 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         apiServiceInputModel: ApiServiceInputModel(
           url: ApiConstants.signUpUrl,
           body: {
-            'userName': authParameter.userName,
+            'userName':authParameter.userName,
             'email': authParameter.email,
             'password': authParameter.password,
             'age': authParameter.age,
-            'weight': authParameter.weight,
-            'height': authParameter.height,
+            'weight':authParameter.weight,
+            'height':authParameter.height,
             'gender': authParameter.gender,
             'isCoach': authParameter.isCoach,
           },
         ),
       );
+     
+     print("Username: ${authParameter.userName}");
+print("Email: ${authParameter.email}");
+print("Password: ${authParameter.password}");
+print("Age: ${authParameter.age}");
+print("Weight: ${authParameter.weight}");
+print("Height: ${authParameter.height}");
+print("Gender: ${authParameter.gender}");
+print("Is Coach: ${authParameter.isCoach}");
+
       return unit;
-    } catch (e) {
+    } on DioException catch (e) {
+      print(e.toString());
       throw ServerException(message: e.toString());
     }
   }

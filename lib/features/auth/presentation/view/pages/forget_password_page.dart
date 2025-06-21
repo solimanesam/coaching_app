@@ -30,7 +30,7 @@ class ForgetPasswordPage extends StatelessWidget {
                     appBarTitle: 'Forget Password',
                     context: context,
                     iconButtonOnPressedFunction: () {
-                      Navigator.pop(context);
+                      Get.back();
                     },
                   )),
                   SizedBox(height: context.height * 0.06),
