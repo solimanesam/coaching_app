@@ -3,7 +3,7 @@ import 'package:coaching_app/core/services/cache_service.dart';
 import 'package:coaching_app/core/services/dependency_injection.dart';
 
 import 'package:coaching_app/features/client_dashboard/presentation/view/pages/client_home_page.dart';
-import 'package:coaching_app/features/coach_dashboard/view/pages/create_package.dart';
+import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/create_package.dart';
 import 'package:coaching_app/features/payment_integration/presentation/view/pages/payment_page.dart';
 import 'package:flutter/widgets.dart';
 

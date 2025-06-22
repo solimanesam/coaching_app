@@ -35,7 +35,6 @@ class AppSnackBar {
       case SnackBarType.warning:
         return Colors.orange;
       case SnackBarType.info:
-      default:
         return Colors.blue;
     }
   }
@@ -49,7 +48,6 @@ class AppSnackBar {
       case SnackBarType.warning:
         return Icons.warning;
       case SnackBarType.info:
-      default:
         return Icons.info;
     }
   }
@@ -63,7 +61,6 @@ class AppSnackBar {
       case SnackBarType.warning:
         return 'Warning';
       case SnackBarType.info:
-      default:
         return 'Info';
     }
   }

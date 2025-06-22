@@ -1,5 +1,5 @@
 import 'package:coaching_app/core/theme/app_colors.dart';
-import 'package:coaching_app/features/client_dashboard/presentation/controllers/Client_bottom_nav_controller.dart.dart';
+import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/Client_bottom_nav_controller.dart.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/pages/client_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

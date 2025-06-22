@@ -12,6 +12,7 @@ class TextFieldInputModel {
       this.onSuffixIconPressed,
       this.validator,
       this.postfixIcon,
+      this.keyBoardType,
       this.isSecure = false});
 
   final TextEditingController controller;
@@ -24,4 +25,5 @@ class TextFieldInputModel {
   final VoidCallback? onSuffixIconPressed;
   final List<TextInputFormatter>? textInputFormatter;
   final FormFieldValidator<String>? validator;
+  final TextInputType? keyBoardType;
 }
