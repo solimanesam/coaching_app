@@ -8,14 +8,14 @@ class ApiConstants {
   static const String logInUrl = '${authBaseUrl}token';
   static const String coachesUrl = '${authBaseUrl}Coaches';
   static const String editImageUrl = '${authBaseUrl}EditImage';
-  static const String createPlanUrl = '${authBaseUrl}Subscription/CreatePlan';
+  static const String createPlanUrl = '${baseUrl}Subscription/CreatePlan';
   static const String subscribeUrl = '${authBaseUrl}Subscription/Subscribe';
   static const String getSubscriptionPlansUrl =
       '${authBaseUrl}Subscription/SubscriptionPlans';
   static const String getSubscriptionPlanByCoachUrl =
       '${authBaseUrl}Subscription/SubscriptionPlanByCoach';
   static const String getSubscribersUrl =
-      '${authBaseUrl}Subscription/Subscribers';
+      '${baseUrl}Subscription/Subscribers';
   static const String getSubscriberFilesUrl =
       '${authBaseUrl}PersonalizedPlan/GetSubscriberFiles';
   static const String uploadPersonalizedPlanUrl =

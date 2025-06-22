@@ -16,7 +16,7 @@ class CvRepo extends CvBaseRepo {
       await cvRemoteDataSource.deleteCv(cvParameters: cvParameters);
       return right(unit);
     } catch (e) {
-      return left(Failure(message: e.toString()));
+      return left(Failure( e.toString()));
     }
   }
 
@@ -26,7 +26,7 @@ class CvRepo extends CvBaseRepo {
       final result = await cvRemoteDataSource.getCv();
       return right(result);
     } catch (e) {
-      return left(Failure(message: e.toString()));
+      return left(Failure( e.toString()));
     }
   }
 
@@ -37,7 +37,7 @@ class CvRepo extends CvBaseRepo {
       await cvRemoteDataSource.uploadCv(cvParameters: cvParameters);
       return right(unit);
     }on ServerException catch (e) {
-      return left(Failure(message: e.toString()));
+      return left(Failure( e.toString()));
     }
   }
 }

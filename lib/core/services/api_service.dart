@@ -22,7 +22,7 @@ class ApiService {
   }
 
   // ✅ GET
-  Future<Map<String, dynamic>> get({
+  Future<dynamic> get({
     required ApiServiceInputModel apiServiceInputModel,
   }) async {
     final response = await dio.get(

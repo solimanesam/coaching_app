@@ -26,12 +26,14 @@ class ClientRequestsPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 50),
-                      child: requestContainer(
-                          context: context,
-                          text1: 'ali ahmed',
-                          text2: '3month',
-                          buttonName1: 'accept',
-                          buttonName2: 'reject'),
+                      // child: requestContainer(
+                      //     context: context,
+                      //     planEntity: 
+                      //     // text1: 'ali ahmed',
+                      //     // text2: '3month',
+                      //     // buttonName1: 'accept',
+                      //     // buttonName2: 'reject'
+                      //     ),
                     );
                   },
                   itemCount: 10),

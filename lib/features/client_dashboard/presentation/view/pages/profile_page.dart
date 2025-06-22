@@ -5,6 +5,7 @@ import 'package:coaching_app/core/widgets/profile_image_widget.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/profile_controller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/list_tile_widget.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/pages/settings_page.dart';
+import 'package:coaching_app/features/client_dashboard/presentation/view/pages/subscribers_page.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/upload_certifcate_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,11 @@ class ProfilePage extends StatelessWidget {
         'icon': Icons.upload_file_rounded,
         'title': 'Upload Certificates',
         'page': () => const UploadCertifcatePage(),
+      },
+      {
+        'icon': Icons.group,
+        'title': 'Subscribers',
+        'page': () => const SubscribersPage(),
       },
       {
         'icon': Icons.settings_outlined,
@@ -47,7 +53,9 @@ class ProfilePage extends StatelessWidget {
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        ProfileImageWidget(),
+                        ProfileImageWidget(
+                          image: profileController.profileInfo!.image,
+                        ),
                         Column(children: [
                           Text(
                             profileController.profileInfo!.userName,
@@ -75,7 +83,7 @@ class ProfilePage extends StatelessWidget {
                 Get.to(page); // لاحظ إنها function, مش Widget مباشرة
               } else {
                 // تسجيل الخروج مثلاً
-                print('Logout tapped');
+                
               }
             },
           ),

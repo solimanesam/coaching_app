@@ -26,6 +26,7 @@ class ProfileController extends GetxController {
       update();
       final result = await profileBaseRepo.editProfile(
           profileEntity: ProfileEntity(
+            image: 'dmdndn',
               userName: userNameController.text,
               email: userNameController.text,
               // weight: userNameController.text,
@@ -59,6 +60,7 @@ class ProfileController extends GetxController {
   @override
   void onInit() {
     getProfile();
+    print("init");
     super.onInit();
   }
 }
