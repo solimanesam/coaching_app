@@ -16,7 +16,7 @@ class ApiService {
     final response = await dio.post(
       apiServiceInputModel.url,
       data: apiServiceInputModel.body,
-      options: _buildOptions(apiServiceInputModel),
+      options:await _buildOptions(apiServiceInputModel),
     );
     return response.data;
   }
@@ -28,7 +28,7 @@ class ApiService {
     final response = await dio.get(
       apiServiceInputModel.url,
       queryParameters: apiServiceInputModel.body,
-      options: _buildOptions(apiServiceInputModel),
+      options:await _buildOptions(apiServiceInputModel),
     );
     return response.data;
   }
@@ -40,7 +40,7 @@ class ApiService {
     final response = await dio.patch(
       apiServiceInputModel.url,
       data: apiServiceInputModel.body,
-      options: _buildOptions(apiServiceInputModel),
+      options:await _buildOptions(apiServiceInputModel),
     );
     return response.data;
   }
@@ -55,7 +55,7 @@ class ApiService {
       url,
       data: formData,
       options: Options(
-        headers: _resolveHeaders(headersType),
+        headers:await _resolveHeaders(headersType),
         contentType: Headers.multipartFormDataContentType,
       ),
     );
@@ -72,7 +72,7 @@ class ApiService {
       url,
       data: formData,
       options: Options(
-        headers: _resolveHeaders(headersType),
+        headers:await _resolveHeaders(headersType),
         contentType: Headers.multipartFormDataContentType,
       ),
     );
@@ -80,39 +80,41 @@ class ApiService {
   }
 
   // ✅ بناء Options من الـ model
-  Options _buildOptions(ApiServiceInputModel model) {
-    return Options(
-      headers: _resolveHeaders(model.apiHeaders),
-      contentType: switch (model.apiContentType) {
-        ApiContentTypeEnum.applicationJson => Headers.jsonContentType,
-        ApiContentTypeEnum.applicationXWwwFormUrlencoded =>
-          Headers.formUrlEncodedContentType,
-        ApiContentTypeEnum.multipartFormData =>
-          Headers.multipartFormDataContentType,
-      },
-    );
-  }
+  Future<Options> _buildOptions(ApiServiceInputModel model) async {
+  final headers = await _resolveHeaders(model.apiHeaders);
+  return Options(
+    headers: headers,
+    contentType: switch (model.apiContentType) {
+      ApiContentTypeEnum.applicationJson => Headers.jsonContentType,
+      ApiContentTypeEnum.applicationXWwwFormUrlencoded => Headers.formUrlEncodedContentType,
+      ApiContentTypeEnum.multipartFormData => Headers.multipartFormDataContentType,
+    },
+  );
+}
+
 
   // ✅ حل headers حسب نوعه
-  Map<String, dynamic> _resolveHeaders(ApiHeadersEnum type) {
-    switch (type) {
-      case ApiHeadersEnum.backEndHeadersWithoutToken:
-        return {'Accept': 'application/json'};
+ Future<Map<String, dynamic>> _resolveHeaders(ApiHeadersEnum type) async {
+  switch (type) {
+    case ApiHeadersEnum.backEndHeadersWithoutToken:
+      return {'Accept': 'application/json'};
 
-      case ApiHeadersEnum.backEndHeadersWithToken:
-        return {
-          'Accept': 'application/json',
-          'Authorization':
-              'Bearer ${locator<BaseCache>().getStringFromCache(key: CacheConstant.tokenKey)}',
-        };
+    case ApiHeadersEnum.backEndHeadersWithToken:
+      final token = await locator<BaseCache>().getStringFromCache(key: CacheConstant.tokenKey);
+      print("🛡️ Actual token from cache: $token");
+      return {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
 
-      case ApiHeadersEnum.paymentHeaders:
-        return {
-          'Authorization': 'Bearer ${SecretKeys.stripeSecretKey}',
-        };
-    }
+    case ApiHeadersEnum.paymentHeaders:
+      return {
+        'Authorization': 'Bearer ${SecretKeys.stripeSecretKey}',
+      };
   }
 }
+ }
+
 
 enum ApiContentTypeEnum {
   applicationJson,

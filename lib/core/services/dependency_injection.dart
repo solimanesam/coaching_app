@@ -1,5 +1,6 @@
 import 'package:coaching_app/core/services/api_service.dart';
 import 'package:coaching_app/core/services/cache_service.dart';
+import 'package:coaching_app/core/services/file_picker_service.dart';
 import 'package:coaching_app/core/services/image_picker_service.dart';
 import 'package:coaching_app/features/auth/data/data_source/auth_local_data_source/auth_local_data_source.dart';
 import 'package:coaching_app/features/auth/data/data_source/remore_data_source/auth_remote_data_source.dart';
@@ -11,6 +12,9 @@ import 'package:coaching_app/features/client_dashboard/data/repos/dashboard_repo
 import 'package:coaching_app/features/client_dashboard/data/repos/profile_repo.dart';
 import 'package:coaching_app/features/client_dashboard/domain/repos/dashboard_base_repo.dart';
 import 'package:coaching_app/features/client_dashboard/domain/repos/profile_base_repo.dart';
+import 'package:coaching_app/features/coach_dashboard/data/datasources/cv_remote_data_source.dart';
+import 'package:coaching_app/features/coach_dashboard/data/repos/cv_repo.dart';
+import 'package:coaching_app/features/coach_dashboard/domain/repos/cv_base_repo.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -19,6 +23,8 @@ GetIt locator = GetIt.instance;
 class DependencyInjection {
   static void setupLocator() {
     ////////////repos
+    locator.registerLazySingleton<CvBaseRepo>(
+        () => CvRepo(cvRemoteDataSource: locator()));
     locator.registerLazySingleton<ProfileBaseRepo>(
         () => ProfileRepo(profileRemoreDataSource: locator()));
     locator.registerLazySingleton<BaseAuthRepo>(() => AuthRepo(
@@ -26,6 +32,8 @@ class DependencyInjection {
     locator.registerLazySingleton<DashboardBaseRepo>(
         () => DashboardRepo(dashboardRemoteDataSource: locator()));
     ////////////datasource
+    locator.registerLazySingleton<CvRemoteDataSource>(
+        () => CvRemoteDataSourceImpl(apiService: locator()));
     locator.registerLazySingleton<ProfileRemoreDataSource>(
         () => ProfileRemoreDataSourceImpl(apiService: locator()));
     locator.registerLazySingleton<AuthRemoteDataSource>(
@@ -35,6 +43,7 @@ class DependencyInjection {
     locator.registerLazySingleton<DashboardRemoteDataSource>(
         () => DashboardRemoteDataSourceImpl(apiService: locator()));
     ////////////services
+    locator.registerLazySingleton<BaseFilePicker>(() => FilePickerImpl());
     locator.registerLazySingleton<BaseImagePickerService>(
         () => ImagePickerService());
     locator.registerLazySingleton<ApiService>(() => ApiService(locator()));

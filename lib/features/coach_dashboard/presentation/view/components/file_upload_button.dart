@@ -3,9 +3,9 @@ import 'package:coaching_app/core/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 
 GestureDetector fileUploadButton(
-    {required BuildContext context, required Function() onTap}) {
+    {required BuildContext context, required void Function() onTap}) {
   return GestureDetector(
-    onTap: () => onTap,
+    onTap: onTap,
     child: Container(
       width: double.infinity,
       decoration: BoxDecoration(

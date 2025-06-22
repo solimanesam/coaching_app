@@ -1,3 +1,4 @@
+import 'package:coaching_app/core/errors/exceptions.dart';
 import 'package:coaching_app/core/errors/failures.dart';
 import 'package:coaching_app/features/coach_dashboard/data/datasources/cv_remote_data_source.dart';
 import 'package:coaching_app/features/coach_dashboard/domain/entities/cv_entity.dart';
@@ -35,7 +36,7 @@ class CvRepo extends CvBaseRepo {
     try {
       await cvRemoteDataSource.uploadCv(cvParameters: cvParameters);
       return right(unit);
-    } catch (e) {
+    }on ServerException catch (e) {
       return left(Failure(message: e.toString()));
     }
   }

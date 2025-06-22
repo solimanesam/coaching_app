@@ -1,6 +1,5 @@
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/theme/text_styles.dart';
-import 'package:coaching_app/core/widgets/arrow_back_button.dart';
 import 'package:coaching_app/core/widgets/custom_button.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/view/components/request_container.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +9,9 @@ class PackagesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        leading: arrowBackButton(
-          onPressed: () {},
-        ),
-      ),
-      body: Padding(
+    return 
+      
+       Padding(
         padding: const EdgeInsets.only(left: 40, right: 40, bottom: 30),
         child: Column(
           children: [
@@ -25,9 +19,7 @@ class PackagesPage extends StatelessWidget {
               'Packages',
               style: TextStyles.semiBold32(context, color: AppColors.black),
             ),
-            SizedBox(
-              height: 30,
-            ),
+            
             Expanded(
                 child: ListView.builder(
               itemBuilder: (context, index) {
@@ -62,7 +54,6 @@ class PackagesPage extends StatelessWidget {
             ))
           ],
         ),
-      ),
-    );
+      );
   }
 }

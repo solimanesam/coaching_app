@@ -1,5 +1,7 @@
 import 'package:coaching_app/core/theme/app_colors.dart';
+import 'package:coaching_app/features/client_dashboard/presentation/controllers/Client_dashboard_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProfileImageWidget extends StatelessWidget {
   const ProfileImageWidget({
@@ -8,6 +10,8 @@ class ProfileImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ClientDashboardController controller =
+        Get.find<ClientDashboardController>();
     return Stack(
       children: [
         CircleAvatar(
@@ -28,7 +32,9 @@ class ProfileImageWidget extends StatelessWidget {
               decoration: BoxDecoration(
                   color: AppColors.primaryColor,
                   borderRadius: BorderRadius.circular(5.0)),
-              child: Icon(Icons.image),
+              child: IconButton(
+                  onPressed: () => controller.pickImageWithSheet(),
+                  icon: Icon(Icons.edit)),
             )),
       ],
     );

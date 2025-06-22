@@ -4,6 +4,7 @@ import 'package:coaching_app/core/services/api_service.dart';
 import 'package:coaching_app/features/client_dashboard/data/models/profile_model.dart';
 import 'package:coaching_app/features/client_dashboard/domain/entities/profile_entity.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 
 abstract class ProfileRemoreDataSource {
   Future<ProfileModel> getProfile();
@@ -23,10 +24,10 @@ class ProfileRemoreDataSourceImpl extends ProfileRemoreDataSource {
               apiHeaders: ApiHeadersEnum.backEndHeadersWithToken,
               body: {
             'email': profileEntity.email,
-            'username': profileEntity.userName,
-            'age': profileEntity.age,
-            'height': profileEntity.height,
-            'weight': profileEntity.weight
+            'userName': profileEntity.userName,
+            
+            // 'height': profileEntity.height,
+            // 'weight': profileEntity.weight
           }));
       return unit;
     } catch (e) {
@@ -42,7 +43,8 @@ class ProfileRemoreDataSourceImpl extends ProfileRemoreDataSource {
               url: ApiConstants.getProfileUrl,
               apiHeaders: ApiHeadersEnum.backEndHeadersWithToken));
       return ProfileModel.fromJson(response);
-    } catch (e) {
+    }on DioException catch (e) {
+      print(e.toString());
       throw ServerException(message: e.toString());
     }
   }

@@ -1,3 +1,4 @@
+import 'package:coaching_app/core/errors/exceptions.dart';
 import 'package:coaching_app/core/errors/failures.dart';
 import 'package:coaching_app/features/client_dashboard/data/data_source/profile_remore_data_source.dart';
 import 'package:coaching_app/features/client_dashboard/domain/entities/profile_entity.dart';
@@ -24,7 +25,7 @@ class ProfileRepo extends ProfileBaseRepo {
     try {
       final result = await profileRemoreDataSource.getProfile();
       return right(result);
-    } catch (e) {
+    }on ServerException catch (e) {
       return left(Failure(message: e.toString()));
     }
   }
