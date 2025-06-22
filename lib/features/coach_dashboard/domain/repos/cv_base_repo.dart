@@ -3,8 +3,8 @@ import 'package:coaching_app/features/coach_dashboard/domain/entities/cv_entity.
 import 'package:dartz/dartz.dart';
 
 abstract class CvBaseRepo {
-  Future<Either<Failure, CvEntity>> getCv();
-  Future<Either<Failure, Unit>> deleteCv({required CvParameters cvParameters});
+  Future<Either<Failure, CvEntity?>> getCv();
+  Future<Either<Failure, Unit>> deleteCv();
   Future<Either<Failure, Unit>> uploadCv({required CvParameters cvParameters});
 }
 

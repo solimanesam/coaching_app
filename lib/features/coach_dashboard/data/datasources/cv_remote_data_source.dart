@@ -1,14 +1,17 @@
 import 'package:coaching_app/core/constants/api_constants.dart';
+import 'package:coaching_app/core/constants/cache_constant.dart';
 import 'package:coaching_app/core/errors/exceptions.dart';
 import 'package:coaching_app/core/services/api_service.dart';
+import 'package:coaching_app/core/services/cache_service.dart';
+import 'package:coaching_app/core/services/dependency_injection.dart';
 import 'package:coaching_app/features/coach_dashboard/data/models/cv_model.dart';
 import 'package:coaching_app/features/coach_dashboard/domain/repos/cv_base_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 abstract class CvRemoteDataSource {
-  Future<CvModel> getCv();
-  Future<Unit> deleteCv({required CvParameters cvParameters});
+  Future<CvModel?> getCv();
+  Future<Unit> deleteCv();
   Future<Unit> uploadCv({required CvParameters cvParameters});
 }
 
@@ -17,24 +20,51 @@ class CvRemoteDataSourceImpl extends CvRemoteDataSource {
 
   CvRemoteDataSourceImpl({required this.apiService});
   @override
-  Future<Unit> deleteCv({required CvParameters cvParameters}) {
-    // TODO: implement deleteCv
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<CvModel> getCv() async {
+  Future<Unit> deleteCv() async {
     try {
-      final response = await apiService.get(
+      await apiService.delete(
           apiServiceInputModel: ApiServiceInputModel(
-        url: ApiConstants.getCvUrl,
+        url: ApiConstants.deleteCvUrl,
         apiHeaders: ApiHeadersEnum.backEndHeadersWithToken,
       ));
-      return CvModel.fromJson(json: response);
-    } catch (e) {
+      return unit;
+    } on DioException catch (e) {
       throw ServerException(message: e.toString());
     }
   }
+
+  final dio = Dio();
+  @override
+ Future<CvModel?> getCv() async {
+  try {
+    final response = await dio.get(
+      ApiConstants.getCvUrl,
+      options: Options(
+        headers: {
+          'Accept': 'application/json',
+          'Authorization':
+              'Bearer ${await locator<BaseCache>().getStringFromCache(key: CacheConstant.tokenKey)}',
+        },
+        // ✅ عشان ميرميش استثناء لو 404
+        validateStatus: (status) => status != null && status < 500,
+      ),
+    );
+
+    final data = response.data;
+
+    if (response.statusCode == 200 && data['succeeded'] == true) {
+      return CvModel.fromJson(json: data);
+    } else if (response.statusCode == 404 || data['message'] == "No CV found.") {
+      return null; // 🟡 معناها مفيش CV
+    } else {
+      throw Exception('Unexpected response: ${data['message']}');
+    }
+  } catch (e) {
+    print('❌ Dio Error: $e');
+    throw ServerException(message: e.toString());
+  }
+}
+
 
   @override
   Future<Unit> uploadCv({required CvParameters cvParameters}) async {
@@ -54,6 +84,7 @@ class CvRemoteDataSourceImpl extends CvRemoteDataSource {
 
       return unit;
     } catch (e) {
+      print(e.toString());
       throw ServerException(message: e.toString());
     }
   }

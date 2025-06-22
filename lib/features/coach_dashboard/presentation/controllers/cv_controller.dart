@@ -16,34 +16,74 @@ class CvController extends GetxController {
 
   RequestStateEnum getCvState = RequestStateEnum.loading;
   CvEntity? cvEntity;
+  RequestStateEnum? uploadCvState;
+  RequestStateEnum? deleteCvState;
 
   Future<void> pickAndUploadCV() async {
-    final filePath =
-        await filePicker.pickFile(allowedExtensions: ['pdf', 'doc', 'docx']);
+  final filePath =
+      await filePicker.pickFile(allowedExtensions: ['pdf', 'doc', 'docx']);
 
-    if (filePath != null) {
-      final result = await cvBaseRepo.uploadCv(
-          cvParameters: CvParameters(filePath: filePath));
-      result.fold((l) {
-        AppSnackBar.show(message: 'failed to upload', type: SnackBarType.error);
-      }, (r) {
-        AppSnackBar.show(
-            message: 'Upload successfully', type: SnackBarType.success);
-      });
-    } else {
-      AppSnackBar.show(message: 'No file selected', type: SnackBarType.warning);
-    }
+  if (filePath != null) {
+    uploadCvState = RequestStateEnum.loading; // 🔁 قبل الرفع
+    update();
+
+    final result = await cvBaseRepo.uploadCv(
+      cvParameters: CvParameters(filePath: filePath),
+    );
+
+    result.fold((l) {
+      uploadCvState = RequestStateEnum.failed;
+      AppSnackBar.show(message: 'failed to upload', type: SnackBarType.error);
+    }, (r) async {
+      uploadCvState = RequestStateEnum.success;
+      AppSnackBar.show(
+          message: 'Upload successfully', type: SnackBarType.success);
+      await getCv(); // ✅ لتحديث الواجهة
+    });
+
+    update();
+  } else {
+    AppSnackBar.show(message: 'No file selected', type: SnackBarType.warning);
+  }
+}
+
+
+  Future<void> getCv() async {
+    final result = await cvBaseRepo.getCv();
+    result.fold(
+      (l) {
+        getCvState = RequestStateEnum.failed;
+        AppSnackBar.show(message: 'failed to get CV', type: SnackBarType.error);
+      },
+      (r) {
+        // ✅ لو null، اعتبره نجاح ولكن بدون CV
+        getCvState = RequestStateEnum.success;
+        cvEntity = r; // ممكن تكون null ومفيش مشكلة
+      },
+    );
+    update();
   }
 
-  getCv() async {
-    final result = await cvBaseRepo.getCv();
+  deleteCv() async {
+    deleteCvState = RequestStateEnum.loading;
+    update();
+    final result = await cvBaseRepo.deleteCv();
     result.fold((l) {
-      getCvState = RequestStateEnum.failed;
-      AppSnackBar.show(message: 'failed to getcv', type: SnackBarType.error);
-    }, (r) {
-      getCvState = RequestStateEnum.success;
-      cvEntity = r;
+      deleteCvState = RequestStateEnum.failed;
+      AppSnackBar.show(
+          message: 'failed to delete Cv', type: SnackBarType.error);
+    }, (r) async {
+      deleteCvState = RequestStateEnum.success;
+      AppSnackBar.show(
+          message: 'Cv deleted successfully', type: SnackBarType.success);
+      await getCv();
     });
     update();
+  }
+
+  @override
+  void onInit() async {
+    await getCv();
+    super.onInit();
   }
 }

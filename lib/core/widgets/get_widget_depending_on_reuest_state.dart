@@ -13,7 +13,7 @@ Widget getWidgetDependingOnReuestState(
     case RequestStateEnum.loading:
       return Padding(
         padding: const EdgeInsets.all(50),
-        child: CircularProgressIndicator(),
+        child: Center(child: CircularProgressIndicator()),
       );
   }
 }

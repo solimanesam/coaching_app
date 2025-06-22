@@ -14,8 +14,7 @@ class ApiConstants {
       '${authBaseUrl}Subscription/SubscriptionPlans';
   static const String getSubscriptionPlanByCoachUrl =
       '${authBaseUrl}Subscription/SubscriptionPlanByCoach';
-  static const String getSubscribersUrl =
-      '${baseUrl}Subscription/Subscribers';
+  static const String getSubscribersUrl = '${baseUrl}Subscription/Subscribers';
   static const String getSubscriberFilesUrl =
       '${authBaseUrl}PersonalizedPlan/GetSubscriberFiles';
   static const String uploadPersonalizedPlanUrl =
@@ -27,4 +26,5 @@ class ApiConstants {
   static const String getProfileUrl = '${authBaseUrl}GetProfile';
   static const String uploadCvUrl = '${cvBaseUrl}upload';
   static const String getCvUrl = '${cvBaseUrl}my-cv';
+  static const String deleteCvUrl = '${cvBaseUrl}delete';
 }

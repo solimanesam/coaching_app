@@ -11,22 +11,22 @@ class CvRepo extends CvBaseRepo {
   CvRepo({required this.cvRemoteDataSource});
   @override
   Future<Either<Failure, Unit>> deleteCv(
-      {required CvParameters cvParameters}) async {
+     ) async {
     try {
-      await cvRemoteDataSource.deleteCv(cvParameters: cvParameters);
+      await cvRemoteDataSource.deleteCv();
       return right(unit);
-    } catch (e) {
-      return left(Failure( e.toString()));
+    } on ServerException catch (e) {
+      return left(Failure(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, CvEntity>> getCv() async {
+  Future<Either<Failure, CvEntity?>> getCv() async {
     try {
       final result = await cvRemoteDataSource.getCv();
       return right(result);
-    } catch (e) {
-      return left(Failure( e.toString()));
+    } on ServerException catch (e) {
+      return left(Failure(e.toString()));
     }
   }
 
@@ -36,8 +36,8 @@ class CvRepo extends CvBaseRepo {
     try {
       await cvRemoteDataSource.uploadCv(cvParameters: cvParameters);
       return right(unit);
-    }on ServerException catch (e) {
-      return left(Failure( e.toString()));
+    } on ServerException catch (e) {
+      return left(Failure(e.toString()));
     }
   }
 }
