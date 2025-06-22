@@ -1,6 +1,7 @@
 import 'package:coaching_app/core/utils/enums.dart';
 import 'package:coaching_app/core/widgets/custom_snake_bar.dart';
 import 'package:coaching_app/features/auth/domain/repos/base_auth_repo.dart';
+import 'package:coaching_app/features/auth/presentation/controller/cubit/client_information.dart';
 import 'package:coaching_app/features/auth/presentation/view/pages/log_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,7 +46,7 @@ class AuthController extends GetxController {
 
   final GlobalKey<FormState> signUpFormkey = GlobalKey<FormState>();
   RequestStateEnum? signUpState;
-
+  
   /////////////////////////////////////////////
   void forgetPassword() async {
     if (forgetPassFormkey.currentState!.validate()) {
@@ -84,38 +85,46 @@ class AuthController extends GetxController {
         AppSnackBar.show(message: l.message, type: SnackBarType.error);
       }, (r) {
         logInState = RequestStateEnum.success;
-        AppSnackBar.show(message: 'Success', type: SnackBarType.success);
+        AppSnackBar.show(message: 'logged in successfully', type: SnackBarType.success);
+        print(r.token);
       });
       update();
     }
   }
 
-  void signUp() async {
-    if (signUpFormkey.currentState!.validate()) {
-      signUpState = RequestStateEnum.loading;
-      update();
-      final result = await baseAuthRepo.signUp(
-          authParameter: AuthParameter(
-              email: signUpEmailController.text,
-              password: signUpPasswordController.text,
-              age: int.parse(tellUsPageControllers[0].text),
-              weight: int.parse(tellUsPageControllers[1].text),
-              height: int.parse(tellUsPageControllers[2].text),
-              userName: signUpUsernameController.text,
-              gender: 'male',
-              isCoach: iscoach));
-      result.fold((l) {
-        signUpState = RequestStateEnum.failed;
-        AppSnackBar.show(message: l.message, type: SnackBarType.error);
-      }, (r) {
-        signUpState = RequestStateEnum.success;
-        AppSnackBar.show(
-            message: 'Your account has been created successfully',
-            type: SnackBarType.success);
-        Get.to(() => LogInPage());
-      });
-      update();
-    }
+  void signUp({required String email, required String password,required String userName}) async {
+    signUpState = RequestStateEnum.loading;
+    update();
+    final result = await baseAuthRepo.signUp(
+        authParameter: AuthParameter(
+            email: email,
+            password: password,
+            age: int.parse(tellUsPageControllers[0].text),
+            weight: int.parse(tellUsPageControllers[1].text),
+            height: int.parse(tellUsPageControllers[2].text),
+            userName:userName,
+            gender: getGender,
+            isCoach: iscoach));
+    result.fold((l) {
+      
+      signUpState = RequestStateEnum.failed;
+      AppSnackBar.show(message: l.message, type: SnackBarType.error);
+        print("Username: ${signUpUsernameController.text}");
+print("Email: ${signUpEmailController.text}");
+print("Password: ${signUpPasswordController.text}");
+print("Age: ${tellUsPageControllers[0].text}");
+print("Weight: ${tellUsPageControllers[1].text}");
+print("Height: ${tellUsPageControllers[2].text}");
+print("Gender: ${getGender}");
+print("Is Coach: ${iscoach}");
+    }, (r) {
+      signUpState = RequestStateEnum.success;
+      AppSnackBar.show(
+          message: 'Your account has been created successfully',
+          type: SnackBarType.success);
+      Get.to(() => LogInPage());
+    });
+    update();
   }
 
   ///////////////////////////varaibles for radiobutton (user type)
@@ -128,4 +137,8 @@ class AuthController extends GetxController {
   }
 
   bool get iscoach => userType == 'coach';
+  ///////////////////////////////////////////////////
+  final infocontroller = Get.find<ClientInformationController>();
+  String get getGender =>
+      infocontroller.selectedCheckBox.value == 0 ? 'male' : 'female';
 }

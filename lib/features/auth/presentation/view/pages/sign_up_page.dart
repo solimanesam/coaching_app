@@ -1,4 +1,3 @@
-
 import 'package:coaching_app/core/constants/view_constants.dart';
 import 'package:coaching_app/core/extentions/responsive_extentions.dart';
 import 'package:coaching_app/core/helper_function/email_validate.dart';
@@ -33,8 +32,7 @@ class SignUpPage extends StatelessWidget {
         text2: 'Sign In',
       ),
       body: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 60),
-
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 60),
         child: Form(
           key: authController.signUpFormkey,
           child: Column(
@@ -42,8 +40,7 @@ class SignUpPage extends StatelessWidget {
             children: [
               Text(
                 'Create Account',
-                style:
-                    TextStyles.semiBold32(context, color: AppColors.black),
+                style: TextStyles.semiBold32(context, color: AppColors.black),
               ),
               SizedBox(
                 height: context.heightReponsive * 0.06,
@@ -94,8 +91,16 @@ class SignUpPage extends StatelessWidget {
                       context: context,
                       buttonName: ViewConstants.continueButtonText,
                       onPressedFunction: () {
-                        if(authController.signUpFormkey.currentState!.validate()){
-                          Get.to(() => TellUsAboutYouPage());
+                        if (authController.signUpFormkey.currentState!
+                            .validate()) {
+                          Get.to(() => TellUsAboutYouPage(
+                                name: authController
+                                    .signUpUsernameController.text,
+                                password: authController
+                                    .signUpPasswordController.text,
+                                email:
+                                    authController.signUpEmailController.text,
+                              ));
                         }
                       }))
             ],

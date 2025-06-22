@@ -17,6 +17,11 @@ import 'package:coaching_app/features/coach_dashboard/data/data_sources/remote_d
 import 'package:coaching_app/features/coach_dashboard/data/repos/coach_subscription_repo.dart';
 import 'package:coaching_app/features/coach_dashboard/dmain/repos/base_coach_subscription_repo.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/controller/cubit/get_subscribers_cubit.dart';
+import 'package:coaching_app/features/client_dashboard/data/data_source/profile_remore_data_source.dart';
+import 'package:coaching_app/features/client_dashboard/data/repos/dashboard_repo.dart';
+import 'package:coaching_app/features/client_dashboard/data/repos/profile_repo.dart';
+import 'package:coaching_app/features/client_dashboard/domain/repos/dashboard_base_repo.dart';
+import 'package:coaching_app/features/client_dashboard/domain/repos/profile_base_repo.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -29,6 +34,8 @@ class DependencyInjection {
     locator.registerFactory(() => GetSubscribersCubit(locator()));
     locator.registerFactory(() => GetCoachPlanByCoachCubit(locator()));
     ////////////repos
+    locator.registerLazySingleton<ProfileBaseRepo>(
+        () => ProfileRepo(profileRemoreDataSource: locator()));
     locator.registerLazySingleton<BaseAuthRepo>(() => AuthRepo(
         authRemoteDataSource: locator(), authLocalDataSource: locator()));
     locator.registerLazySingleton<DashboardBaseRepo>(
@@ -40,6 +47,8 @@ class DependencyInjection {
         ClientSubscriptionRepo(
             baseClientSubscriptionRemoteDataSource: locator()));
     ////////////datasource
+    locator.registerLazySingleton<ProfileRemoreDataSource>(
+        () => ProfileRemoreDataSourceImpl(apiService: locator()));
     locator.registerLazySingleton<AuthRemoteDataSource>(
         () => AuthRemoteDataSourceImpl(apiService: locator()));
     locator.registerLazySingleton<AuthLocalDataSource>(

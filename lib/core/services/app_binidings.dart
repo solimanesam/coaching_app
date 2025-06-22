@@ -6,6 +6,7 @@ import 'package:coaching_app/features/client_dashboard/presentation/controllers/
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/get_subscriber_files_controller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/subscribe_controller.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/controller/getx_controllers/create_coach_plan_contrller.dart';
+import 'package:coaching_app/features/client_dashboard/presentation/controllers/profile_controller.dart';
 import 'package:coaching_app/features/payment_integration/presentation/controller/stripe_controller.dart';
 import 'package:get/get.dart';
 
@@ -23,5 +24,7 @@ class AppBinidings extends Bindings {
     Get.lazyPut(() => CreateCoachPlanContrller(locator()), fenix: true);
     Get.lazyPut(() => SubscribeController(locator()), fenix: true);
     Get.lazyPut(() => GetSubscriberFilesController(locator()), fenix: true);
+    Get.lazyPut(() => ProfileController(profileBaseRepo: locator()),
+        fenix: true);
   }
 }
