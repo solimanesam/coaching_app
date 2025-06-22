@@ -10,7 +10,7 @@ Widget customTextField({required TextFieldInputModel textFieldInputModel}) {
       validator: textFieldInputModel.validator,
       obscureText: textFieldInputModel.isSecure,
       cursorColor: AppColors.primaryColor,
-      
+      keyboardType: textFieldInputModel.keyBoardType,
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),

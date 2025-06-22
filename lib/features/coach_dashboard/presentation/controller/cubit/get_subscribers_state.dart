@@ -7,7 +7,7 @@ class GetSubscribersState extends Equatable {
       this.getSubscribersErrorMessage});
 
   final RequestStateEnum getSubscribersState;
-  final List subscribers;
+  final List<Subscriber> subscribers;
   final String? getSubscribersErrorMessage;
 
   @override

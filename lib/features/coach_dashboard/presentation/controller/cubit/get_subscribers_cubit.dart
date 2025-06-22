@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:coaching_app/base_coach_subscription_repo.dart';
+import 'package:coaching_app/features/coach_dashboard/dmain/entities/subscriber.dart';
+import 'package:coaching_app/features/coach_dashboard/dmain/repos/base_coach_subscription_repo.dart';
 import 'package:coaching_app/core/errors/failures.dart';
 import 'package:coaching_app/core/utils/enums.dart';
 import 'package:dartz/dartz.dart';
@@ -14,7 +15,7 @@ class GetSubscribersCubit extends Cubit<GetSubscribersState> {
   final BaseCoachSubscriptionRepo baseCoachSubscriptionRepo;
 
   void getSubscribers() async {
-    final Either<Failure, List<dynamic>> result =
+    final Either<Failure, List<Subscriber>> result =
         await baseCoachSubscriptionRepo.getSubscribers();
     result.fold((l) {
       emit(GetSubscribersState(

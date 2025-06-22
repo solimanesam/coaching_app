@@ -1,5 +1,6 @@
 import 'package:coaching_app/core/errors/exceptions.dart';
 import 'package:coaching_app/core/errors/failures.dart';
+import 'package:coaching_app/core/helper_function/handle_server_exception.dart';
 import 'package:coaching_app/features/auth/data/data_source/auth_local_data_source/auth_local_data_source.dart';
 import 'package:coaching_app/features/auth/data/data_source/remore_data_source/auth_remote_data_source.dart';
 import 'package:coaching_app/features/auth/data/models/auth_model.dart';
@@ -16,9 +17,9 @@ class AuthRepo extends BaseAuthRepo {
       {required AuthParameter authParameter}) async {
     try {
       await authRemoteDataSource.forgetPassword(authParameter: authParameter);
-      return right(unit);
-    } on ServerException catch (e) {
-      return left(Failure(message: e.toString()));
+      return const Right(unit);
+    } catch (e) {
+      return left(handelServerException(e));
     }
   }
 
@@ -30,10 +31,9 @@ class AuthRepo extends BaseAuthRepo {
           await authRemoteDataSource.logIn(authParameter: authParameter);
       await authLocalDataSource.cacheToken(result.token);
       await authLocalDataSource.cacheRole(result.role);
-
       return right(result);
-    } on ServerException catch (e) {
-      return left(Failure(message: e.message));
+    } catch (e) {
+      return left(handelServerException(e));
     }
   }
 
@@ -42,9 +42,9 @@ class AuthRepo extends BaseAuthRepo {
       {required AuthParameter authParameter}) async {
     try {
       await authRemoteDataSource.signUp(authParameter: authParameter);
-      return right(unit);
-    } on ServerException catch (e) {
-      return left(Failure(message: e.toString()));
+      return const Right(unit);
+    } catch (e) {
+      return left(handelServerException(e));
     }
   }
 }

@@ -11,7 +11,7 @@ final class GetSubscriptionPlansLoading extends GetSubscriptionPlansState {}
 final class GetSubscriptionPlansSuccess extends GetSubscriptionPlansState {
   const GetSubscriptionPlansSuccess({required this.subscriptionPlans});
 
-  final List subscriptionPlans;
+  final List<PlanEntity> subscriptionPlans;
 
   @override
   List<Object?> get props => [subscriptionPlans];

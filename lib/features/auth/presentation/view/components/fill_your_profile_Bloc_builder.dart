@@ -3,7 +3,7 @@ import 'package:coaching_app/core/extentions/responsive_extentions.dart';
 import 'package:coaching_app/core/models/text_field_input_model.dart';
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/widgets/custom_text_field.dart';
-import 'package:coaching_app/features/client_dashboard/presentation/controllers/Client_dashboard_controller.dart';
+import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/Client_dashboard_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

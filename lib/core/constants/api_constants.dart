@@ -8,11 +8,23 @@ class ApiConstants {
   static const String logInUrl = '${authBaseUrl}token';
   static const String coachesUrl = '${authBaseUrl}Coaches';
   static const String editImageUrl = '${authBaseUrl}EditImage';
+  static const String createPlanUrl = '${authBaseUrl}Subscription/CreatePlan';
+  static const String subscribeUrl = '${authBaseUrl}Subscription/Subscribe';
+  static const String getSubscriptionPlansUrl =
+      '${authBaseUrl}Subscription/SubscriptionPlans';
+  static const String getSubscriptionPlanByCoachUrl =
+      '${authBaseUrl}Subscription/SubscriptionPlanByCoach';
+  static const String getSubscribersUrl =
+      '${authBaseUrl}Subscription/Subscribers';
+  static const String getSubscriberFilesUrl =
+      '${authBaseUrl}PersonalizedPlan/GetSubscriberFiles';
+  static const String uploadPersonalizedPlanUrl =
+      '${authBaseUrl}PersonalizedPlan/Upload';
+  static const String sendPrombtUrl = '${authBaseUrl}';
+  static const String paymentIntentEndPoint =
+      'https://api.stripe.com/v1/payment_intents';
   static const String editProfilrUrl = '${authBaseUrl}EditProfile';
   static const String getProfileUrl = '${authBaseUrl}GetProfile';
   static const String uploadCvUrl = '${cvBaseUrl}upload';
   static const String getCvUrl = '${cvBaseUrl}my-cv';
-
-  static const String paymentIntentEndPoint =
-      'https://api.stripe.com/v1/payment_intents';
 }
