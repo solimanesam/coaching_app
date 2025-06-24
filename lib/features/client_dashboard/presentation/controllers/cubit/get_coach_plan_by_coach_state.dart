@@ -10,12 +10,12 @@ sealed class GetCoachPlanByCoachState extends Equatable {
 final class GetSubscriptionPlanByCoachLoading extends GetCoachPlanByCoachState {}
 
 final class GetSubscriptionPlanByCoachSuccess extends GetCoachPlanByCoachState {
-  const GetSubscriptionPlanByCoachSuccess({required this.subscriptionPlan});
+  const GetSubscriptionPlanByCoachSuccess({required this.subscriptionPlans});
 
-  final List<PlanEntity> subscriptionPlan;
+  final List<PlanEntity> subscriptionPlans;
 
   @override
-  List<Object?> get props => [subscriptionPlan];
+  List<Object?> get props => [subscriptionPlans];
 }
 
 final class GetSubscriptionPlanByCoachFailed extends GetCoachPlanByCoachState {

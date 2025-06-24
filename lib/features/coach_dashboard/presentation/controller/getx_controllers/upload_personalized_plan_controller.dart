@@ -11,7 +11,7 @@ class UploadPersonalizedPlanController extends GetxController {
   UploadPersonalizedPlanController(this.baseCoachSubscriptionRepo);
 
   final BaseCoachSubscriptionRepo baseCoachSubscriptionRepo;
-  
+
   RequestStateEnum? createCoachPlanState;
 
   void uploadPersonalizedPlan() async {

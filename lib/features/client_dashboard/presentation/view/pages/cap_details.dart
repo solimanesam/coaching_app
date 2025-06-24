@@ -1,18 +1,13 @@
 import 'package:coaching_app/core/extentions/responsive_extentions.dart';
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/widgets/custom_button.dart';
+import 'package:coaching_app/features/client_dashboard/domain/entities/coash_entity.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/custom_row_for_cap_details.dart';
 import 'package:flutter/material.dart';
 
 class CapDetails extends StatelessWidget {
-  const CapDetails(
-      {super.key,
-      required this.image,
-      required this.name,
-      required this.phone});
-  final String image;
-  final String name;
-  final String phone;
+  const CapDetails({super.key, required this.coachEntity});
+  final CoachEntity coachEntity;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,19 +32,20 @@ class CapDetails extends StatelessWidget {
                 height: context.widthResponsive * .4,
                 width: context.widthResponsive * .4,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(context.widthResponsive * .25),
+                    borderRadius:
+                        BorderRadius.circular(context.widthResponsive * .25),
                     image: DecorationImage(
-                        image: AssetImage(image), fit: BoxFit.cover)),
+                        image: AssetImage(coachEntity.image),
+                        fit: BoxFit.cover)),
               ),
             ),
             SizedBox(
               height: 50,
             ),
-            customRowForCapDetails(context: context, text: name),
+            customRowForCapDetails(context: context, text: coachEntity.name),
             SizedBox(
               height: 30,
             ),
-            customRowForCapDetails(context: context, text: phone),
             customButton(
                 customButtonInputModel: CustomButtonInputModel(
               context: context,
