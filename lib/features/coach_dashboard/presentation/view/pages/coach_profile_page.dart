@@ -1,3 +1,4 @@
+import 'package:coaching_app/core/pages/edit_profile_page.dart';
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/theme/text_styles.dart';
 import 'package:coaching_app/core/widgets/get_widget_depending_on_reuest_state.dart';
@@ -5,7 +6,6 @@ import 'package:coaching_app/core/widgets/profile_image_widget.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/profile_controller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/list_tile_widget.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/pages/settings_page.dart';
-import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/subscribers_page.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/upload_certifcate_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,9 +22,9 @@ class CoachProfilePage extends StatelessWidget {
         'page': () => const UploadCertifcatePage(),
       },
       {
-        'icon': Icons.group,
-        'title': 'Subscribers',
-        'page': () => const SubscribersPage(),
+        'icon': Icons.edit_note,
+        'title': 'Edit Profile',
+        'page': () => const EditProfilePage(),
       },
       {
         'icon': Icons.settings_outlined,
@@ -59,13 +59,13 @@ class CoachProfilePage extends StatelessWidget {
                         Column(children: [
                           Text(
                             profileController.profileInfo!.userName,
-                            style: TextStyles.semiBold32(context,
+                            style: TextStyles.semiBold20(context,
                                 color: AppColors.black),
                           ),
                           Text(
                             profileController.profileInfo!.email,
-                            style: TextStyles.quarterBold32(context,
-                                color: AppColors.black),
+                            style: TextStyles.quarterBold18(
+                                context: context, color: AppColors.black),
                           )
                         ])
                       ],
@@ -83,7 +83,6 @@ class CoachProfilePage extends StatelessWidget {
                 Get.to(page); // لاحظ إنها function, مش Widget مباشرة
               } else {
                 // تسجيل الخروج مثلاً
-                
               }
             },
           ),

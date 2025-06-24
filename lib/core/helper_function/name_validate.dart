@@ -8,7 +8,10 @@ String? validateName(String? value) {
   if (value.length > 30) {
     return "The name must not exceed 30 characters!";
   }
-  if (!RegExp(r'^[a-zA-Z\u0621-\u064A ]+$').hasMatch(value)) {
+  if (value.contains(' ')) {
+    return "Spaces are not allowed in the name!";
+  }
+  if (!RegExp(r'^[a-zA-Z\u0621-\u064A]+$').hasMatch(value)) {
     return "The name should contain only letters!";
   }
   return null;

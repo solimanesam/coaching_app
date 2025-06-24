@@ -1,13 +1,11 @@
 import 'package:coaching_app/core/services/dependency_injection.dart';
 import 'package:coaching_app/core/theme/app_colors.dart';
-import 'package:coaching_app/core/widgets/arrow_back_button.dart';
 import 'package:coaching_app/core/widgets/get_widget_depending_on_reuest_state.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/controller/cubit/get_subscribers_cubit.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/view/components/subscriber_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:coaching_app/core/theme/text_styles.dart';
-import 'package:get/get.dart';
 
 class SubscribersPage extends StatelessWidget {
   const SubscribersPage({super.key});
@@ -16,17 +14,9 @@ class SubscribersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => locator<GetSubscribersCubit>()..getSubscribers(),
-      child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 40,
-          backgroundColor: AppColors.white,
-          leading: arrowBackButton(
-            onPressed: () {
-              Get.back();
-            },
-          ),
-        ),
-        body: Padding(
+      child: 
+        
+        Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
@@ -66,7 +56,6 @@ class SubscribersPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

@@ -11,12 +11,12 @@ class ProfileRepo extends ProfileBaseRepo {
   ProfileRepo({required this.profileRemoreDataSource});
   @override
   Future<Either<Failure, Unit>> editProfile(
-      {required ProfileEntity profileEntity}) async {
+      {required ProfileParameters profileParameters}) async {
     try {
-      await profileRemoreDataSource.editProfile(profileEntity: profileEntity);
+      await profileRemoreDataSource.editProfile(profileParameters: profileParameters);
       return right(unit);
-    } catch (e) {
-      return left(Failure( e.toString()));
+    }on ServerException catch (e) {
+      return left(Failure( e.message));
     }
   }
 

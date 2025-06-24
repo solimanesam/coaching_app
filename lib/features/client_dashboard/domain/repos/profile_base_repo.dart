@@ -5,5 +5,18 @@ import 'package:dartz/dartz.dart';
 abstract class ProfileBaseRepo {
   Future<Either<Failure, ProfileEntity>> getProfile();
   Future<Either<Failure, Unit>> editProfile(
-      {required ProfileEntity profileEntity});
+      {required ProfileParameters profileParameters});
+}
+
+class ProfileParameters {
+  final String email;
+  final String userName;
+  final int height;
+  final int weight;
+  ProfileParameters({
+    required this.email,
+    required this.userName,
+    required this.height,
+    required this.weight,
+  });
 }
