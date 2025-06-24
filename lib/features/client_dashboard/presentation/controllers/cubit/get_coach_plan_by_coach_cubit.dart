@@ -24,7 +24,7 @@ class GetCoachPlanByCoachCubit extends Cubit<GetCoachPlanByCoachState> {
     result.fold((l) {
       emit(GetSubscriptionPlanByCoachFailed(errorMessage: l.message));
     }, (r) {
-      emit(GetSubscriptionPlanByCoachSuccess(subscriptionPlan: r));
+      emit(GetSubscriptionPlanByCoachSuccess(subscriptionPlans: r));
     });
   }
 }
