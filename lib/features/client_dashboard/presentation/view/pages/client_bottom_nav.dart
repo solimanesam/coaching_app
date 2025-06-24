@@ -13,7 +13,7 @@ class ClientDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final ClientBottomNavController controller =
         Get.find<ClientBottomNavController>();
-    return AppBottomNav(items: controller.bottomNavigationBarItems, children: [
+    return AppBottomNav(items: controller.clientBottomNavigationBarItems, children: [
       const ClientHomePage(),
       Text('1'),
       Text('1'),

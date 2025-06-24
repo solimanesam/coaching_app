@@ -9,7 +9,10 @@ Widget getWidgetDependingOnReuestState(
     case RequestStateEnum.success:
       return widgetIncaseSuccess;
     case RequestStateEnum.failed:
-      return Center(child: Text(erorrMessage!));
+      return Padding(
+        padding: const EdgeInsets.all(50),
+        child: Center(child: Text(erorrMessage!)),
+      );
     case RequestStateEnum.loading:
       return Padding(
         padding: const EdgeInsets.all(50),

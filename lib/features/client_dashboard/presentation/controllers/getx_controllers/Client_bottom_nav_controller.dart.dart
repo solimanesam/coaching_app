@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ClientBottomNavController extends GetxController {
-  final List<BottomNavigationBarItem> bottomNavigationBarItems = [
+  final List<BottomNavigationBarItem> clientBottomNavigationBarItems = [
     const BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: ''),
     const BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: ''),
     const BottomNavigationBarItem(
         icon: Icon(Icons.chat_bubble_outline), label: ''),
     const BottomNavigationBarItem(icon: Icon(Icons.auto_awesome), label: ''),
+    const BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+  ];
+  final List<BottomNavigationBarItem> coashBottomNavigationBarItems = [
+    const BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: ''),
+    const BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: ''),
+    const BottomNavigationBarItem(
+        icon: Icon(Icons.chat_bubble_outline), label: ''),
+    const BottomNavigationBarItem(icon: Icon(Icons.group), label: ''),
     const BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
   ];
 
