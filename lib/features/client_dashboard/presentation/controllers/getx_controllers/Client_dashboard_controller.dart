@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:coaching_app/core/widgets/custom_bottom_sheet.dart';
+import 'package:coaching_app/features/client_dashboard/presentation/controllers/profile_controller.dart';
 import 'package:get/get.dart';
 import 'package:coaching_app/core/utils/enums.dart';
 import 'package:coaching_app/core/widgets/custom_snake_bar.dart';
@@ -33,7 +34,8 @@ class ClientDashboardController extends GetxController {
     update();
 
     try {
-      selectedImage = await imagePickerService.pickImage(sourceType: sourceType);
+      selectedImage =
+          await imagePickerService.pickImage(sourceType: sourceType);
 
       if (selectedImage == null) {
         editImageState = RequestStateEnum.failed;
@@ -60,6 +62,10 @@ class ClientDashboardController extends GetxController {
             message: "Image has been edited successfully",
             type: SnackBarType.success,
           );
+          final ProfileController profileController =
+              Get.find<ProfileController>();
+          profileController.getProfile();
+          update();
         },
       );
     } catch (e) {

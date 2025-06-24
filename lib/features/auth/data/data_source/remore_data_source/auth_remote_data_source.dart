@@ -71,15 +71,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         ),
       );
      
-     print("Username: ${authParameter.userName}");
-print("Email: ${authParameter.email}");
-print("Password: ${authParameter.password}");
-print("Age: ${authParameter.age}");
-print("Weight: ${authParameter.weight}");
-print("Height: ${authParameter.height}");
-print("Gender: ${authParameter.gender}");
-print("Is Coach: ${authParameter.isCoach}");
-
+    
       return unit;
     } on DioException catch (e) {
       print(e.toString());

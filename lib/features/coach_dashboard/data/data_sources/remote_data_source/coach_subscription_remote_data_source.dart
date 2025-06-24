@@ -30,15 +30,30 @@ class CoachSubscriptionRemoteDataSource
 
   @override
   Future<List<Subscriber>> getSubscribers() async {
-    final Map<String, dynamic> body = await apiService.get(
-        apiServiceInputModel: ApiServiceInputModel(
-            url: ApiConstants.getSubscribersUrl,
-            apiHeaders: ApiHeadersEnum.backEndHeadersWithToken));
-    final List<Map<String, dynamic>> json = body["subscribers"];
-    final List<Subscriber> subscribers =
-        List.from(json.map((e) => SubscriberModel.fromJson(e)));
-    return subscribers;
+  final dynamic body = await apiService.get(
+    apiServiceInputModel: ApiServiceInputModel(
+      url: ApiConstants.getSubscribersUrl,
+      apiHeaders: ApiHeadersEnum.backEndHeadersWithToken,
+    ),
+  );
+
+  if (body is List) {
+    return body
+        .where((item) =>
+            item['userName'] != null &&
+            item['email'] != null &&
+            item['height'] != null &&
+            item['weight'] != null)
+        .map((item) => SubscriberModel.fromJson(item))
+        .toList();
+  } else if (body is Map<String, dynamic>) {
+    throw Exception(body['message'] ?? 'Unexpected error');
+  } else {
+    throw Exception('Invalid response format');
   }
+}
+
+
   
   @override
   Future<void> uploadPersonalizedPlan({required UploadPersonalizedPlanInputModel uploadPersonalizedPlanInputModel}) async{

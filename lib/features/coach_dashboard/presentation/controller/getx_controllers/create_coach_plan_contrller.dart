@@ -12,7 +12,7 @@ class CreateCoachPlanContrller extends GetxController {
 
   final BaseCoachSubscriptionRepo baseCoachSubscriptionRepo;
   RequestStateEnum? createCoachPlanState;
-  
+
 //text editing controllers
   final TextEditingController priceTextFieldController =
       TextEditingController();
@@ -20,26 +20,31 @@ class CreateCoachPlanContrller extends GetxController {
       TextEditingController();
   final TextEditingController detailsTextFieldController =
       TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   void createPlan() async {
-    createCoachPlanState = RequestStateEnum.loading;
-    update();
-    final Either<Failure, Unit> result =
-        await baseCoachSubscriptionRepo.createPlane(
-            coachPlanInputModel: CoachPlanInputModel(
-                price: priceTextFieldController.text,
-                durationInDays: durationInDaysTextFieldController.text,
-                details: detailsTextFieldController.text));
-    result.fold((l) {
-      createCoachPlanState = RequestStateEnum.failed;
-      AppSnackBar.show(message: l.message, type: SnackBarType.error);
-    }, (r) {
-      createCoachPlanState = RequestStateEnum.success;
-      AppSnackBar.show(message: "your coaching plan has been successfully created and is now ready to use!", type: SnackBarType.success);
-      _clearTextFields();
-    });
-    update();
-
+    if (formKey.currentState!.validate()) {
+      createCoachPlanState = RequestStateEnum.loading;
+      update();
+      final Either<Failure, Unit> result =
+          await baseCoachSubscriptionRepo.createPlane(
+              coachPlanInputModel: CoachPlanInputModel(
+                  price: priceTextFieldController.text,
+                  durationInDays: durationInDaysTextFieldController.text,
+                  details: detailsTextFieldController.text));
+      result.fold((l) {
+        createCoachPlanState = RequestStateEnum.failed;
+        AppSnackBar.show(message: l.message, type: SnackBarType.error);
+      }, (r) {
+        createCoachPlanState = RequestStateEnum.success;
+        AppSnackBar.show(
+            message:
+                "your coaching plan has been successfully created and is now ready to use!",
+            type: SnackBarType.success);
+        _clearTextFields();
+      });
+      update();
+    }
   }
 
   void _clearTextFields() {

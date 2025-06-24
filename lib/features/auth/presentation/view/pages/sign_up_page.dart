@@ -99,7 +99,7 @@ class SignUpPage extends StatelessWidget {
                                 password: authController
                                     .signUpPasswordController.text,
                                 email:
-                                    authController.signUpEmailController.text,
+                                    authController.signUpEmailController.text, iscoach: authController.iscoach,
                               ));
                         }
                       }))

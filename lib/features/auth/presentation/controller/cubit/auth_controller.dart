@@ -3,6 +3,7 @@ import 'package:coaching_app/core/widgets/custom_snake_bar.dart';
 import 'package:coaching_app/features/auth/domain/repos/base_auth_repo.dart';
 import 'package:coaching_app/features/auth/presentation/controller/cubit/client_information.dart';
 import 'package:coaching_app/features/auth/presentation/view/pages/log_in_page.dart';
+import 'package:coaching_app/features/splashscreen/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -87,13 +88,23 @@ class AuthController extends GetxController {
         logInState = RequestStateEnum.success;
         AppSnackBar.show(message: 'logged in successfully', type: SnackBarType.success);
         print(r.token);
+        Get.to(() => SplashScreen());
       });
       update();
     }
   }
 
-  void signUp({required String email, required String password,required String userName}) async {
+  void signUp({required String email, required String password,required String userName,required bool iscoachh}) async {
+    print("Username: ${signUpUsernameController.text}");
+print("Email: ${signUpEmailController.text}");
+print("Password: ${signUpPasswordController.text}");
+print("Age: ${tellUsPageControllers[0].text}");
+print("Weight: ${tellUsPageControllers[1].text}");
+print("Height: ${tellUsPageControllers[2].text}");
+print("Gender: ${getGender}");
+print("Is Coach: ${iscoachh}");
     signUpState = RequestStateEnum.loading;
+    
     update();
     final result = await baseAuthRepo.signUp(
         authParameter: AuthParameter(
@@ -104,19 +115,12 @@ class AuthController extends GetxController {
             height: int.parse(tellUsPageControllers[2].text),
             userName:userName,
             gender: getGender,
-            isCoach: iscoach));
+            isCoach: iscoachh));
     result.fold((l) {
       
       signUpState = RequestStateEnum.failed;
       AppSnackBar.show(message: l.message, type: SnackBarType.error);
-        print("Username: ${signUpUsernameController.text}");
-print("Email: ${signUpEmailController.text}");
-print("Password: ${signUpPasswordController.text}");
-print("Age: ${tellUsPageControllers[0].text}");
-print("Weight: ${tellUsPageControllers[1].text}");
-print("Height: ${tellUsPageControllers[2].text}");
-print("Gender: ${getGender}");
-print("Is Coach: ${iscoach}");
+        
     }, (r) {
       signUpState = RequestStateEnum.success;
       AppSnackBar.show(

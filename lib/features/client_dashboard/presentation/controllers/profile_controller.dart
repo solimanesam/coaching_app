@@ -26,11 +26,12 @@ class ProfileController extends GetxController {
       update();
       final result = await profileBaseRepo.editProfile(
           profileEntity: ProfileEntity(
+            image: 'dmdndn',
               userName: userNameController.text,
               email: userNameController.text,
-              age: userNameController.text,
-              weight: userNameController.text,
-              height: userNameController.text));
+              // weight: userNameController.text,
+              // height: userNameController.text
+              ));
       result.fold((l) {
         editProfileErrorMess = l.message;
         editProfileState = RequestStateEnum.failed;
@@ -54,5 +55,12 @@ class ProfileController extends GetxController {
       getProfileState = RequestStateEnum.success;
       update();
     });
+  }
+
+  @override
+  void onInit() {
+    getProfile();
+    print("init");
+    super.onInit();
   }
 }

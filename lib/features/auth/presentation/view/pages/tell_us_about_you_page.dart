@@ -11,10 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TellUsAboutYouPage extends StatelessWidget {
-  const TellUsAboutYouPage({super.key, required this.name, required this.password, required this.email,});
+  const TellUsAboutYouPage({super.key, required this.name, required this.password, required this.email, required this.iscoach,});
   final String name;
   final String password;
   final String email;
+  final bool iscoach;
   @override
   Widget build(BuildContext context) {
     final authController =Get.find<AuthController>();
@@ -51,7 +52,7 @@ class TellUsAboutYouPage extends StatelessWidget {
               context: context,
               buttonName: ViewConstants.continueButtonText,
               onPressedFunction: (){  if (authController.tellUsPageFormkey.currentState!.validate()) {
-                  Get.to(()=> ChooseYourGenderPage(name: name, email: email, password: password,));
+                  Get.to(()=> ChooseYourGenderPage(name: name, email: email, password: password,iscoach: iscoach,));
                 }
               },
             ))

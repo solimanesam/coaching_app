@@ -7,23 +7,25 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const List<Map<String, dynamic>> settingsOptions = [
-  {
-    'icon': Icons.vpn_key_outlined,
-    'title': 'Password Manager',
-  },
-  {
-    'icon': Icons.delete_outline,
-    'title': 'Delete Account',
-  },
-];
+      {
+        'icon': Icons.vpn_key_outlined,
+        'title': 'Password Manager',
+      },
+      {
+        'icon': Icons.delete_outline,
+        'title': 'Delete Account',
+      },
+    ];
     return Scaffold(
       body: Column(
         children: [
           ...List.generate(
             settingsOptions.length,
             (index) => ListTileWidget(
-                icon: settingsOptions[index]['icon'],
-                title: settingsOptions[index]['title']),
+              icon: settingsOptions[index]['icon'],
+              title: settingsOptions[index]['title'],
+              onTab: () {},
+            ),
           )
         ],
       ),

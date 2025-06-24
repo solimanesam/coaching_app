@@ -60,7 +60,6 @@ class LogInPage extends StatelessWidget {
                             context: context,
                             controller: authController.logInPasswordController,
                             textHint: 'Password',
-                            validator: (value) => validatePassword(value),
                             isSecure: authController.isSecureController.value,
                             postfixIcon: authController.isSecureController.value
                                 ? Icons.visibility_off_outlined

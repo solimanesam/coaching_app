@@ -1,3 +1,4 @@
+import 'package:coaching_app/core/helper_function/empty_validate.dart';
 import 'package:coaching_app/core/models/text_field_input_model.dart';
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/theme/text_styles.dart';
@@ -8,7 +9,6 @@ import 'package:coaching_app/core/widgets/custom_text_field.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/controller/getx_controllers/create_coach_plan_contrller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 
 class CreatePackage extends StatelessWidget {
   const CreatePackage({super.key});
@@ -19,9 +19,12 @@ class CreatePackage extends StatelessWidget {
         Get.find<CreateCoachPlanContrller>();
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        leading: arrowBackButton(onPressed: () {}),
+        leading: arrowBackButton(onPressed: () {
+          Get.back();
+        }),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 40, right: 40, bottom: 50),
@@ -36,17 +39,21 @@ class CreatePackage extends StatelessWidget {
               height: 30,
             ),
             Form(
+              key: createCoachPlanContrller.formKey,
                 child: Column(
+              spacing: 40,
               children: [
                 customTextField(
                     textFieldInputModel: TextFieldInputModel(
                         context: context,
+                        validator: (value) => validateEmpty(value),
                         controller:
                             createCoachPlanContrller.detailsTextFieldController,
                         textHint: 'description')),
                 customTextField(
                     textFieldInputModel: TextFieldInputModel(
                         context: context,
+                        validator: (value) => validateEmpty(value),
                         controller:
                             createCoachPlanContrller.priceTextFieldController,
                         keyBoardType: TextInputType.number,
@@ -54,6 +61,7 @@ class CreatePackage extends StatelessWidget {
                 customTextField(
                     textFieldInputModel: TextFieldInputModel(
                         context: context,
+                        validator: (value) => validateEmpty(value),
                         controller: createCoachPlanContrller
                             .durationInDaysTextFieldController,
                         keyBoardType: TextInputType.number,

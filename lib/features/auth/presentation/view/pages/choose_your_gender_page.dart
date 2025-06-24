@@ -9,10 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChooseYourGenderPage extends StatelessWidget {
-  const ChooseYourGenderPage({super.key, required this.name, required this.email, required this.password});
+  const ChooseYourGenderPage({super.key, required this.name, required this.email, required this.password, required this.iscoach});
   final String name;
   final String email;
  final String password;
+ final bool iscoach;
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ClientInformationController>();
@@ -41,7 +42,7 @@ class ChooseYourGenderPage extends StatelessWidget {
                   buttonName:cont.signUpState == RequestStateEnum.loading ? "Loading..." : ViewConstants.doneButtonText,
                   onPressedFunction: () {
                     if (controller.validateGenderSelection()) {
-                      authController.signUp(email:email, password: password, userName: name);
+                      authController.signUp(email:email, password: password, userName: name,iscoachh: iscoach);
                     } else {
                       Get.snackbar(
                         "Warning",

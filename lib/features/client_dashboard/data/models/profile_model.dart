@@ -3,18 +3,15 @@ import 'package:coaching_app/features/client_dashboard/domain/entities/profile_e
 class ProfileModel extends ProfileEntity {
   const ProfileModel(
       {required super.userName,
-      required super.email,
-      required super.age,
-      required super.weight,
-      required super.height});
+      required super.email, required super.image,
+     });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
+      image: json['image'],
       userName: json['userName'],
       email: json['email'],
-      age: json['age'],
-      weight: json['weight'],
-      height: json['height'],
+     
     );
   }
 }
