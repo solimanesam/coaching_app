@@ -21,9 +21,10 @@ import 'package:coaching_app/features/coach_dashboard/presentation/controller/cu
 import 'package:coaching_app/features/client_dashboard/data/data_source/profile_remore_data_source.dart';
 import 'package:coaching_app/features/client_dashboard/data/repos/profile_repo.dart';
 import 'package:coaching_app/features/client_dashboard/domain/repos/profile_base_repo.dart';
-import 'package:coaching_app/features/coach_dashboard/data/datasources/cv_remote_data_source.dart';
+import 'package:coaching_app/features/coach_dashboard/data/data_sources/remote_data_source/cv_remote_data_source.dart';
 import 'package:coaching_app/features/coach_dashboard/data/repos/cv_repo.dart';
 import 'package:coaching_app/features/coach_dashboard/domain/repos/cv_base_repo.dart';
+import 'package:coaching_app/features/payment_integration/presentation/controller/stripe_controller.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -31,10 +32,11 @@ GetIt locator = GetIt.instance;
 
 class DependencyInjection {
   static void setupLocator() {
-    ////////////cubits
+    ////////////controllers
     locator.registerFactory(() => GetSubscriptionPlansCubit(locator()));
     locator.registerFactory(() => GetSubscribersCubit(locator()));
     locator.registerFactory(() => GetCoachPlanByCoachCubit(locator()));
+    locator.registerLazySingleton(() => StripeController(locator()));
     ////////////repos
     locator.registerLazySingleton<CvBaseRepo>(
         () => CvRepo(cvRemoteDataSource: locator()));

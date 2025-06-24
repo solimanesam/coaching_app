@@ -5,6 +5,7 @@ import 'package:coaching_app/features/coach_dashboard/data/models/subscriber_mod
 import 'package:coaching_app/features/coach_dashboard/data/models/upload_personalized_plan_input_model.dart';
 import 'package:coaching_app/features/coach_dashboard/dmain/entities/subscriber.dart';
 
+
 abstract class BaseCoachSubscriptionRemoteDataSource {
   Future<List<Subscriber>> getSubscribers();
   Future<void> createPlane({required CoachPlanInputModel coachPlanInputModel});
@@ -57,10 +58,10 @@ class CoachSubscriptionRemoteDataSource
   
   @override
   Future<void> uploadPersonalizedPlan({required UploadPersonalizedPlanInputModel uploadPersonalizedPlanInputModel}) async{
-    await apiService.post(
-        apiServiceInputModel: ApiServiceInputModel(
-            url: ApiConstants.uploadPersonalizedPlanUrl,
-            body: uploadPersonalizedPlanInputModel.toJson(),
-            apiHeaders: ApiHeadersEnum.backEndHeadersWithToken));
+    await apiService.postFormData(
+      url: '${ApiConstants.uploadPersonalizedPlanUrl}/subscriberUserName=${uploadPersonalizedPlanInputModel.subscriberUserName}',
+      formData: await uploadPersonalizedPlanInputModel.toJson(),
+      headersType: ApiHeadersEnum.backEndHeadersWithToken,
+    );
   }
 }

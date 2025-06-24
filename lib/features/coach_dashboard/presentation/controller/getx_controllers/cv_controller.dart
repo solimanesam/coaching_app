@@ -21,14 +21,14 @@ class CvController extends GetxController {
 
   Future<void> pickAndUploadCV() async {
   final filePath =
-      await filePicker.pickFile(allowedExtensions: ['pdf', 'doc', 'docx']);
+      await filePicker.pickFile();
 
   if (filePath != null) {
     uploadCvState = RequestStateEnum.loading; // 🔁 قبل الرفع
     update();
 
     final result = await cvBaseRepo.uploadCv(
-      cvParameters: CvParameters(filePath: filePath),
+      cvParameters: CvInputModel(filePath: filePath),
     );
 
     result.fold((l) {
