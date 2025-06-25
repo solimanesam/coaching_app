@@ -40,7 +40,7 @@ class PackagesPage extends StatelessWidget {
                   } else if (state is GetSubscriptionPlanByCoachFailed) {
                     return Center(child: Text(state.errorMessage));
                   } else if (state is GetSubscriptionPlanByCoachSuccess) {
-                    final subscriptionPlans = state.subscriptionPlan;
+                    final subscriptionPlans = state.subscriptionPlans;
 
                     if (subscriptionPlans.isEmpty) {
                       return const Center(child: Text('No packages found.'));

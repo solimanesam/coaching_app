@@ -37,4 +37,5 @@ class GetCoachesController extends GetxController {
     if (string == '') searchList.clear();
     update();
   }
+ 
 }

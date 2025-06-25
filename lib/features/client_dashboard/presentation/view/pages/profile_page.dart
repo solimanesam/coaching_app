@@ -1,9 +1,14 @@
+import 'package:coaching_app/core/constants/cache_constant.dart';
 import 'package:coaching_app/core/pages/edit_profile_page.dart';
+import 'package:coaching_app/core/services/cache_service.dart';
+import 'package:coaching_app/core/services/dependency_injection.dart';
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/theme/text_styles.dart';
 import 'package:coaching_app/core/widgets/get_widget_depending_on_reuest_state.dart';
 import 'package:coaching_app/core/widgets/profile_image_widget.dart';
+import 'package:coaching_app/features/auth/presentation/view/pages/log_in_page.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/profile_controller.dart';
+import 'package:coaching_app/features/client_dashboard/presentation/view/components/bottom_sheet_widget.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/list_tile_widget.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/pages/settings_page.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/upload_certifcate_page.dart';
@@ -82,7 +87,16 @@ class ProfilePage extends StatelessWidget {
               if (page != null) {
                 Get.to(page); // لاحظ إنها function, مش Widget مباشرة
               } else {
-                // تسجيل الخروج مثلاً
+                appBottomSheet(
+                  context: context,
+                  text1: 'Log Out',
+                  text2: 'Are you sure you want to log out',
+                  onPressed: () async {
+                    await locator<BaseCache>()
+                        .deleteCache(key: CacheConstant.tokenKey);
+                    Get.to(LogInPage());
+                  },
+                );
               }
             },
           ),
