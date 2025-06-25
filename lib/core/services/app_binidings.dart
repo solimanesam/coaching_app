@@ -9,6 +9,7 @@ import 'package:coaching_app/features/client_dashboard/presentation/controllers/
 import 'package:coaching_app/features/coach_dashboard/presentation/controller/getx_controllers/create_coach_plan_contrller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/profile_controller.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/controller/getx_controllers/cv_controller.dart';
+import 'package:coaching_app/features/coach_dashboard/presentation/controller/getx_controllers/upload_personalized_plan_controller.dart';
 import 'package:coaching_app/features/payment_integration/presentation/controller/stripe_controller.dart';
 import 'package:get/get.dart';
 
@@ -31,6 +32,8 @@ class AppBinidings extends Bindings {
     Get.lazyPut(() => GetCoachesController(locator()), fenix: true);
     Get.lazyPut(
         () => CvController(cvBaseRepo: locator(), filePicker: locator()),
+        fenix: true);
+    Get.lazyPut(() => UploadPersonalizedPlanController(locator(), locator()),
         fenix: true);
   }
 }

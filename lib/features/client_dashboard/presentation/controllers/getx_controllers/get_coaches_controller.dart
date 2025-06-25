@@ -16,26 +16,33 @@ class GetCoachesController extends GetxController {
 
 //search
   List<CoachEntity> searchList = const [];
-  
-  void getCoaches() async{
+
+  void getCoaches() async {
     final Either<Failure, List<CoachEntity>> result =
         await dashboardBaseRepo.getCoaches();
     result.fold((l) {
       getCoachesState = RequestStateEnum.failed;
       getCoachesErrorMessage = l.message;
+      print(l.message);
     }, (r) {
       getCoachesState = RequestStateEnum.success;
       coaches = r;
+      print(r);
     });
     update();
   }
 
-  void search({required String string}){
-     searchList = coaches
+  void search({required String string}) {
+    searchList = coaches
         .where((element) => element.name.toString().startsWith(string))
         .toList();
     if (string == '') searchList.clear();
     update();
   }
- 
+
+  @override
+  void onInit() {
+    getCoaches();
+    super.onInit();
+  }
 }

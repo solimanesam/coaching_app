@@ -1,9 +1,21 @@
 import 'package:equatable/equatable.dart';
 
+class CoachEntity extends Equatable {
+  final String userName;
+  final String email;
+    
+  const CoachEntity({
+    required this.userName,
+    required this.email,
+  });
+
+  @override
+  List<Object?> get props => [userName, email];
+}
+
 class PlanEntity extends Equatable {
   final int id;
-  final String coachId;
-  final String coach;
+  final CoachEntity coach;
   final int price;
   final int durationInDays;
   final String details;
@@ -11,7 +23,6 @@ class PlanEntity extends Equatable {
 
   const PlanEntity({
     required this.id,
-    required this.coachId,
     required this.coach,
     required this.price,
     required this.durationInDays,
@@ -22,7 +33,6 @@ class PlanEntity extends Equatable {
   @override
   List<Object?> get props => [
         id,
-        coachId,
         coach,
         price,
         durationInDays,

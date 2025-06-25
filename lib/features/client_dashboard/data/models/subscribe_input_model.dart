@@ -1,5 +1,5 @@
 class SubscribeInputModel {
-  Map<String, dynamic> toJson() {
-    return {};
-  }
+  final int planId;
+
+  SubscribeInputModel({required this.planId});
 }

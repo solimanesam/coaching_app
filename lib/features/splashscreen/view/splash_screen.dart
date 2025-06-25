@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 2), () async {
       final route = await getInitRoute;
-      Get.off(() => route);
+      Get.offAll(() => route);
     });
 
     return Container(

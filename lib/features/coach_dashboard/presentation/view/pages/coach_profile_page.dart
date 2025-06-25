@@ -7,10 +7,10 @@ import 'package:coaching_app/core/theme/text_styles.dart';
 import 'package:coaching_app/core/widgets/get_widget_depending_on_reuest_state.dart';
 import 'package:coaching_app/core/widgets/profile_image_widget.dart';
 import 'package:coaching_app/features/auth/presentation/view/pages/log_in_page.dart';
+import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/Client_bottom_nav_controller.dart.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/profile_controller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/bottom_sheet_widget.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/list_tile_widget.dart';
-import 'package:coaching_app/features/client_dashboard/presentation/view/pages/settings_page.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/upload_certifcate_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,16 +31,16 @@ class CoachProfilePage extends StatelessWidget {
         'title': 'Edit Profile',
         'page': () => const EditProfilePage(),
       },
-      {
-        'icon': Icons.settings_outlined,
-        'title': 'Settings',
-        'page': () => const SettingsPage(),
-      },
-      {
-        'icon': Icons.lock_outline,
-        'title': 'Help center',
-        'page': null,
-      },
+      // {
+      //   'icon': Icons.settings_outlined,
+      //   'title': 'Settings',
+      //   'page': () => const SettingsPage(),
+      // },
+      // {
+      //   'icon': Icons.lock_outline,
+      //   'title': 'Help center',
+      //   'page': null,
+      // },
       {
         'icon': Icons.logout,
         'title': 'Log out',
@@ -50,33 +50,34 @@ class CoachProfilePage extends StatelessWidget {
 
     return Column(
       children: [
-        GetBuilder<ProfileController>(builder: (profileController) {
-          return getWidgetDependingOnReuestState(
-              requestStateEnum: profileController.getProfileState,
-              widgetIncaseSuccess: profileController.profileInfo == null
-                  ? SizedBox()
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ProfileImageWidget(
-                          image: profileController.profileInfo!.image,
-                        ),
-                        Column(children: [
-                          Text(
-                            profileController.profileInfo!.userName,
-                            style: TextStyles.semiBold20(context,
-                                color: AppColors.black),
-                          ),
-                          Text(
-                            profileController.profileInfo!.email,
-                            style: TextStyles.quarterBold18(
-                                context: context, color: AppColors.black),
-                          )
-                        ])
-                      ],
-                    ),
-              erorrMessage: profileController.getProfileErrorMess);
-        }),
+        // GetBuilder<ProfileController>(builder: (profileController) {
+        //   return getWidgetDependingOnReuestState(
+        //       requestStateEnum: profileController.getProfileState,
+        //       widgetIncaseSuccess: profileController.profileInfo == null
+        //           ? SizedBox()
+        //           : Row(
+        //               mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //               children: [
+        //                 ProfileImageWidget(
+        //                   image: profileController.profileInfo!.image,
+        //                 ),
+        //                 Column(children: [
+        //                   Text(
+        //                     profileController.profileInfo!.userName,
+        //                     style: TextStyles.semiBold20(context,
+        //                         color: AppColors.black),
+        //                   ),
+        //                   Text(
+        //                     profileController.profileInfo!.email,
+        //                     style: TextStyles.quarterBold18(
+        //                         context: context, color: AppColors.black),
+        //                   )
+        //                 ])
+        //               ],
+        //             ),
+        //       erorrMessage: profileController.getProfileErrorMess);
+        // }),
+        Spacer(flex: 1,),
         ...List.generate(
           profileOptions.length,
           (index) => ListTileWidget(
@@ -92,6 +93,8 @@ class CoachProfilePage extends StatelessWidget {
                   text1: 'Log Out',
                   text2: 'Are you sure you want to log out',
                   onPressed: () async {
+                      Get.delete<ClientBottomNavController>();
+
                     await locator<BaseCache>()
                         .deleteCache(key: CacheConstant.tokenKey);
                     Get.to(LogInPage());
@@ -100,7 +103,8 @@ class CoachProfilePage extends StatelessWidget {
               }
             },
           ),
-        )
+        ),
+        Spacer(flex: 3,),
       ],
     );
   }

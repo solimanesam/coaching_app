@@ -22,14 +22,15 @@ class DashboardRemoteDataSourceImpl implements DashboardRemoteDataSource {
       final response = await apiService.get(
         apiServiceInputModel: ApiServiceInputModel(
           url: ApiConstants.coachesUrl,
-          apiHeaders: ApiHeadersEnum.backEndHeadersWithToken,
+          apiHeaders: ApiHeadersEnum.backEndHeadersWithoutToken,
         ),
       );
 
       return List<CoachModel>.from(
-        (response['data'] as List).map((x) => CoachModel.fromJson(x)),
+        (response as List).map((x) => CoachModel.fromJson(x)),
       );
     } catch (e) {
+      print(e);
       throw ServerException(message: e.toString());
     }
   }

@@ -59,7 +59,7 @@ class CoachSubscriptionRemoteDataSource
   @override
   Future<void> uploadPersonalizedPlan({required UploadPersonalizedPlanInputModel uploadPersonalizedPlanInputModel}) async{
     await apiService.postFormData(
-      url: '${ApiConstants.uploadPersonalizedPlanUrl}/subscriberUserName=${uploadPersonalizedPlanInputModel.subscriberUserName}',
+      url: '${ApiConstants.uploadPersonalizedPlanUrl}?subscriberUserName=${uploadPersonalizedPlanInputModel.subscriberUserName}',
       formData: await uploadPersonalizedPlanInputModel.toJson(),
       headersType: ApiHeadersEnum.backEndHeadersWithToken,
     );

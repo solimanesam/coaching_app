@@ -14,7 +14,7 @@ class CoachDashboard extends StatelessWidget {
     final ClientBottomNavController controller =
         Get.find<ClientBottomNavController>();
     return AppBottomNav(items: controller.coashBottomNavigationBarItems, children: [
-      PackagesPage(),
+      //PackagesPage(),
       Center(child: Text('2')),
       Center(child: Text('3')),
       SubscribersPage(),

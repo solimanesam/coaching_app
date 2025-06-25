@@ -187,4 +187,6 @@ class TextStyles {
       height: 1.2, // 120%
     );
   }
+
+  static regular14(BuildContext context, {required Color color}) {}
 }

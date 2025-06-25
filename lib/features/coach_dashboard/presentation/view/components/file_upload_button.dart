@@ -20,15 +20,10 @@ GestureDetector fileUploadButton(
         child: Row(
           children: [
             Text(
-              'file upload',
+              isLoading ? 'loading...' : 'file upload',
               style: TextStyles.semiBold18(
                   context: context, color: AppColors.black),
             ),
-            Visibility(
-                visible: isLoading,
-                child: CircularProgressIndicator.adaptive(
-                  backgroundColor: AppColors.primaryColor,
-                )),
             const Spacer(),
             Icon(
               Icons.cloud_upload,

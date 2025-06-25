@@ -2,15 +2,15 @@ import 'package:equatable/equatable.dart';
 
 class SubscriberFileEntity extends Equatable {
   const SubscriberFileEntity(
-      {required this.name,
-      required this.fileUrl,
-      required this.downloadUrl,
+      {required this.fileName,
+      required this.fileLink,
+      required this.downloadLink,
       required this.publishedDate,
-      required this.coachName});
+      });
 
-  final String name, fileUrl, downloadUrl, publishedDate, coachName;
+  final String fileName, fileLink, downloadLink, publishedDate;
 
   @override
   List<Object?> get props =>
-      [name, fileUrl, downloadUrl, publishedDate, coachName];
+      [fileName, fileLink, downloadLink, publishedDate, ];
 }

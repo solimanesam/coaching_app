@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class ClientBottomNavController extends GetxController {
   final List<BottomNavigationBarItem> clientBottomNavigationBarItems = [
     const BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: ''),
+    const BottomNavigationBarItem(icon: Icon(Icons.work_outline), label: ''),
     const BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: ''),
     const BottomNavigationBarItem(
         icon: Icon(Icons.chat_bubble_outline), label: ''),
@@ -59,4 +60,10 @@ class ClientBottomNavController extends GetxController {
     'You can track your workouts by logging in to your account and accessing your workout history.',
     'You can choose a coach from the coaches section in the app.'
   ];
+  @override
+void onClose() {
+  pageController.dispose();
+  super.onClose();
+}
+
 }

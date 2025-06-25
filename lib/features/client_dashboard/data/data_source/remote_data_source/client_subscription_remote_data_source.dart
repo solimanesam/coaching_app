@@ -1,4 +1,5 @@
 import 'package:coaching_app/core/constants/api_constants.dart';
+import 'package:coaching_app/core/errors/exceptions.dart';
 import 'package:coaching_app/core/services/api_service.dart';
 import 'package:coaching_app/features/client_dashboard/data/models/plan_model.dart';
 import 'package:coaching_app/features/client_dashboard/data/models/subscribe_input_model.dart';
@@ -23,22 +24,24 @@ class ClientSubscriptionRemoteDataSource
 
   @override
   Future<List<PlanEntity>> getSubscriptionPlanByCoach({required SubscriptionPlanByCoachInputModel subscriptionPlanByCoachInputModel}) async{
-    final Map<String, dynamic> body = await apiService.get(
+   try {final  body = await apiService.get(
         apiServiceInputModel: ApiServiceInputModel(
-            url: ApiConstants.getSubscriptionPlansUrl,
+            url: "${ApiConstants.getSubscriptionPlanByCoachUrl}?userName=${subscriptionPlanByCoachInputModel.coashName}",
             apiHeaders: ApiHeadersEnum.backEndHeadersWithToken));
-    final List<Map<String, dynamic>> json = body["subscriptionPlans"];
-    return List.from(json.map((e) => PlanModel.fromJson(e)).toList());
+    return List.from((body as List).map((e) => PlanModel.fromJson(e)).toList());}
+    catch(e){
+      print(e);
+      throw ServerException(message: e.toString());
+    }
   }
 
   @override
   Future<List<PlanEntity>> getSubscriptionPlans() async {
-    final Map<String, dynamic> body = await apiService.get(
+    final  body = await apiService.get(
         apiServiceInputModel: ApiServiceInputModel(
             url: ApiConstants.getSubscriptionPlansUrl,
             apiHeaders: ApiHeadersEnum.backEndHeadersWithToken));
-    final List<Map<String, dynamic>> json = body["subscriptionPlans"];
-    return List.from(json.map((e) => PlanModel.fromJson(e)).toList());
+    return List.from((body as List).map((e) => PlanModel.fromJson(e)).toList());
   }
 
   @override
@@ -46,18 +49,17 @@ class ClientSubscriptionRemoteDataSource
       {required SubscribeInputModel subscribeInputModel}) async {
     await apiService.post(
         apiServiceInputModel: ApiServiceInputModel(
-            url: ApiConstants.subscribeUrl,
-            body: subscribeInputModel.toJson(),
+            url: "${ApiConstants.subscribeUrl}?subscriptionPlanId=${subscribeInputModel.planId}",
+            
             apiHeaders: ApiHeadersEnum.backEndHeadersWithToken));
   }
   
   @override
   Future<List<SubscriberFileEntity>> getSubscriberFiles() async{
-    final Map<String, dynamic> body = await apiService.get(
+    final body = await apiService.get(
         apiServiceInputModel: ApiServiceInputModel(
             url: ApiConstants.getSubscriberFilesUrl,
             apiHeaders: ApiHeadersEnum.backEndHeadersWithToken));
-    final List<Map<String, dynamic>> json = body["subscriberFiles"];
-    return List.from(json.map((e) => SubscriberFileModel.fromJson(e)).toList());
+    return List.from((body['data'] as List).map((e) => SubscriberFileModel.fromJson(e)).toList());
   }
 }

@@ -1,4 +1,5 @@
 import 'package:coaching_app/core/theme/app_colors.dart';
+import 'package:coaching_app/core/widgets/get_widget_depending_on_reuest_state.dart';
 import 'package:coaching_app/features/client_dashboard/domain/entities/coash_entity.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/get_coaches_controller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/cap_container.dart';
@@ -12,7 +13,7 @@ class ClientHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         spacing: 20,
         children: [
@@ -35,27 +36,30 @@ class ClientHomePage extends StatelessWidget {
             final List<CoachEntity> coaches = controller.searchList.isEmpty
                 ? controller.coaches
                 : controller.searchList;
-            return ListView.builder(
-              itemCount: coaches.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
-                        child: capContainer(
-                          context: context,
-                          image: coaches[index].image,
-                          name: "Cap: ${coaches[index].name}",
-                          onTap: () =>
-                              Get.to(CapDetails(coachEntity: coaches[index])),
-                        )),
-                    const SizedBox(
-                      height: 30,
-                    )
-                  ],
-                );
-              },
-            );
+            return getWidgetDependingOnReuestState(
+                requestStateEnum: controller.getCoachesState,
+                widgetIncaseSuccess: ListView.builder(
+                  itemCount: coaches.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            child: capContainer(
+                              context: context,
+                              image: coaches[index].image,
+                              name: "Cap: ${coaches[index].name}",
+                              onTap: () => Get.to(
+                                  CapDetails(coachEntity: coaches[index])),
+                            )),
+                        const SizedBox(
+                          height: 30,
+                        )
+                      ],
+                    );
+                  },
+                ),
+                erorrMessage: controller.getCoachesErrorMessage);
           }))
         ],
       ),
