@@ -1,12 +1,11 @@
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/theme/text_styles.dart';
-import 'package:coaching_app/core/utils/enums.dart';
-import 'package:coaching_app/features/coach_dashboard/presentation/controllers/cv_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 GestureDetector fileUploadButton(
-    {required BuildContext context, required void Function() onTap}) {
+    {required BuildContext context,
+    required void Function() onTap,
+    required bool isLoading}) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
@@ -20,15 +19,16 @@ GestureDetector fileUploadButton(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            GetBuilder<CvController>(builder: (cvController) {
-              return Text(
-                cvController.uploadCvState == RequestStateEnum.loading
-                    ? 'Loading...'
-                    : 'file upload',
-                style: TextStyles.semiBold18(
-                    context: context, color: AppColors.black),
-              );
-            }),
+            Text(
+              'file upload',
+              style: TextStyles.semiBold18(
+                  context: context, color: AppColors.black),
+            ),
+            Visibility(
+                visible: isLoading,
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: AppColors.primaryColor,
+                )),
             const Spacer(),
             Icon(
               Icons.cloud_upload,

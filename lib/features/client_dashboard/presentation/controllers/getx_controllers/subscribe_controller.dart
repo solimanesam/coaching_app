@@ -10,9 +10,10 @@ class SubscribeController extends GetxController {
   SubscribeController(this.baseClientSubscriptionRepo);
 
   final BaseClientSubscriptionRepo baseClientSubscriptionRepo;
+
   RequestStateEnum? createCoachPlanState;
 
-  void subscribe({required SubscribeInputModel subscribeInputModel}) async {
+  void subscribe(SubscribeInputModel subscribeInputModel) async {
     createCoachPlanState = RequestStateEnum.loading;
     update();
     final Either<Failure, Unit> result = await baseClientSubscriptionRepo

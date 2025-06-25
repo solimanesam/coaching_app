@@ -1,6 +1,6 @@
 import 'package:coaching_app/core/errors/exceptions.dart';
 import 'package:coaching_app/core/errors/failures.dart';
-import 'package:coaching_app/features/coach_dashboard/data/datasources/cv_remote_data_source.dart';
+import 'package:coaching_app/features/coach_dashboard/data/data_sources/remote_data_source/cv_remote_data_source.dart';
 import 'package:coaching_app/features/coach_dashboard/domain/entities/cv_entity.dart';
 import 'package:coaching_app/features/coach_dashboard/domain/repos/cv_base_repo.dart';
 import 'package:dartz/dartz.dart';
@@ -32,7 +32,7 @@ class CvRepo extends CvBaseRepo {
 
   @override
   Future<Either<Failure, Unit>> uploadCv(
-      {required CvParameters cvParameters}) async {
+      {required CvInputModel cvParameters}) async {
     try {
       await cvRemoteDataSource.uploadCv(cvParameters: cvParameters);
       return right(unit);

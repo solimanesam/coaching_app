@@ -6,7 +6,7 @@ import 'package:coaching_app/core/widgets/arrow_back_button.dart';
 import 'package:coaching_app/core/widgets/custom_button.dart';
 import 'package:coaching_app/core/widgets/get_widget_depending_on_reuest_state.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/bottom_sheet_widget.dart';
-import 'package:coaching_app/features/coach_dashboard/presentation/controllers/cv_controller.dart';
+import 'package:coaching_app/features/coach_dashboard/presentation/controller/getx_controllers/cv_controller.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/view/components/file_upload_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,6 +50,7 @@ class UploadCertifcatePage extends StatelessWidget {
                     fileUploadButton(
                       context: context,
                       onTap: () => controller.pickAndUploadCV(),
+                      isLoading: controller.uploadCvState == RequestStateEnum.loading
                     )
                   else
                     Column(

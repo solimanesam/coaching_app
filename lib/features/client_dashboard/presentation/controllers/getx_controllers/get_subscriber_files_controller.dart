@@ -14,6 +14,12 @@ class GetSubscriberFilesController extends GetxController {
   List<SubscriberFileEntity> subscriberFiles = const [];
   String? getSubscriberFilesErrorMessage;
   
+  @override
+  void onInit() {
+    getSubscriberFiles();
+    super.onInit();
+  }
+  
   void getSubscriberFiles() async{
     final Either<Failure, List<SubscriberFileEntity>> result =
         await baseClientSubscriptionRepo.getSubscriberFiles();

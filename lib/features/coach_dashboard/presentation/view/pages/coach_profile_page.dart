@@ -15,8 +15,8 @@ import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/up
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class CoachProfilePage extends StatelessWidget {
+  const CoachProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {

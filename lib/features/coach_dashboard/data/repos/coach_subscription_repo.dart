@@ -33,7 +33,6 @@ class CoachSubscriptionRepo extends BaseCoachSubscriptionRepo {
           await baseCoachSubscriptionRemoteDataSource.getSubscribers();
       return right(subscribers);
     } catch (e) {
-      print(e.toString());
       return left(handelServerException(e));
     }
   }

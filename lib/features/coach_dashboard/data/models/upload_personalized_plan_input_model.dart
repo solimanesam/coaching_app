@@ -1,15 +1,18 @@
-import 'dart:io';
+import 'package:dio/dio.dart';
 
 class UploadPersonalizedPlanInputModel {
-  UploadPersonalizedPlanInputModel(
-      {required this.planFile, required this.subscriberUserName});
+  const UploadPersonalizedPlanInputModel(
+      {required this.filePath, required this.subscriberUserName});
 
-  final File planFile;
+  final String filePath;
   final String subscriberUserName;
 
-  Map<String, dynamic> toJson(){
-    return {
-      "file": planFile
-    };
+  Future<FormData> toJson() async {
+    return FormData.fromMap({
+      'file': await MultipartFile.fromFile(
+        filePath,
+        filename: filePath.split('/').last,
+      ),
+    });
   }
 }
