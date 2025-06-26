@@ -4,6 +4,7 @@ import 'package:coaching_app/features/client_dashboard/presentation/view/compone
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/contact_us_tab_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HelpCenterScreen extends StatelessWidget {
   const HelpCenterScreen({super.key});
@@ -22,7 +23,9 @@ class HelpCenterScreen extends StatelessWidget {
               color: AppColors.black,
               size: 30,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
           ),
         ),
         body: Column(

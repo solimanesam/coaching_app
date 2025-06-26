@@ -1,4 +1,3 @@
-import 'package:coaching_app/core/errors/exceptions.dart';
 import 'package:coaching_app/core/errors/failures.dart';
 import 'package:coaching_app/core/helper_function/handle_server_exception.dart';
 import 'package:coaching_app/features/auth/data/data_source/auth_local_data_source/auth_local_data_source.dart';

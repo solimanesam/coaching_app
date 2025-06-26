@@ -6,10 +6,13 @@ import 'package:coaching_app/features/auth/data/data_source/auth_local_data_sour
 import 'package:coaching_app/features/auth/data/data_source/remore_data_source/auth_remote_data_source.dart';
 import 'package:coaching_app/features/auth/data/repos/auth_repo.dart';
 import 'package:coaching_app/features/auth/domain/repos/base_auth_repo.dart';
+import 'package:coaching_app/features/client_dashboard/data/data_source/remote_data_source/chat_bot_remote_data_source.dart';
 import 'package:coaching_app/features/client_dashboard/data/data_source/remote_data_source/client_subscription_remote_data_source.dart';
 import 'package:coaching_app/features/client_dashboard/data/data_source/remote_data_source/dashboard_remote_data_source.dart';
+import 'package:coaching_app/features/client_dashboard/data/repos/chat_bot_repo.dart';
 import 'package:coaching_app/features/client_dashboard/data/repos/client_subscription_repo.dart';
 import 'package:coaching_app/features/client_dashboard/data/repos/dashboard_repo.dart';
+import 'package:coaching_app/features/client_dashboard/domain/repos/base_chat_bot_repo.dart';
 import 'package:coaching_app/features/client_dashboard/domain/repos/base_client_subscription_repo.dart';
 import 'package:coaching_app/features/client_dashboard/domain/repos/dashboard_base_repo.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/cubit/get_coach_plan_by_coach_cubit.dart';
@@ -38,6 +41,8 @@ class DependencyInjection {
     locator.registerFactory(() => GetCoachPlanByCoachCubit(locator()));
     locator.registerLazySingleton(() => StripeController(locator()));
     ////////////repos
+    locator.registerLazySingleton<BaseChatBotRepo>(
+        () => ChatBotRepo(chatBotRemoteDataSource: locator()));
     locator.registerLazySingleton<CvBaseRepo>(
         () => CvRepo(cvRemoteDataSource: locator()));
     locator.registerLazySingleton<ProfileBaseRepo>(
@@ -53,6 +58,8 @@ class DependencyInjection {
         ClientSubscriptionRepo(
             baseClientSubscriptionRemoteDataSource: locator()));
     ////////////datasource
+    locator.registerLazySingleton<BaseChatBotRemoteDataSource>(
+        () => ChatBotRemoteDataSource(apiService: locator()));
     locator.registerLazySingleton<CvRemoteDataSource>(
         () => CvRemoteDataSourceImpl(apiService: locator()));
     locator.registerLazySingleton<ProfileRemoreDataSource>(

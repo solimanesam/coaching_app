@@ -19,7 +19,7 @@ class ApiConstants {
       '${baseUrl}PersonalizedPlan/GetSubscriberFiles';
   static const String uploadPersonalizedPlanUrl =
       '${baseUrl}PersonalizedPlan/upload';
-  static const String sendPrombtUrl = '${authBaseUrl}';
+  static const String sendPrombtUrl = 'https://fitnessbot-production-9ffe.up.railway.app/chat';
   static const String paymentIntentEndPoint =
       'https://api.stripe.com/v1/payment_intents';
   static const String editProfilrUrl = '${authBaseUrl}EditProfile';

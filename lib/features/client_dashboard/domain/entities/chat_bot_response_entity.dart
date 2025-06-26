@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-class ChatBotResponseEntity extends Equatable{
+class ChatBotResponseEntity extends Equatable {
+  final String answer;
+
+  const ChatBotResponseEntity({required this.answer});
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [answer];
 }

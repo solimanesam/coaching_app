@@ -3,6 +3,7 @@ import 'package:coaching_app/features/auth/presentation/controller/cubit/auth_co
 import 'package:coaching_app/features/auth/presentation/controller/cubit/client_information.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/Client_bottom_nav_controller.dart.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/Client_dashboard_controller.dart';
+import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/chat_bot_controller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/get_coaches_controller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/get_subscriber_files_controller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/subscribe_controller.dart';
@@ -35,5 +36,6 @@ class AppBinidings extends Bindings {
         fenix: true);
     Get.lazyPut(() => UploadPersonalizedPlanController(locator(), locator()),
         fenix: true);
+    Get.lazyPut(() => ChatBotController(locator()), fenix: true);
   }
 }

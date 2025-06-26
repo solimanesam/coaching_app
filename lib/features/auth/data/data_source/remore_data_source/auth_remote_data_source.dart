@@ -74,8 +74,8 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     
       return unit;
     } on DioException catch (e) {
-      print(e.toString());
-      throw ServerException(message: e.toString());
+      
+      throw ServerException(message: e.response?.data);
     }
   }
 }
