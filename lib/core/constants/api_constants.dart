@@ -10,6 +10,8 @@ class ApiConstants {
   static const String editImageUrl = '${authBaseUrl}EditImage';
   static const String createPlanUrl = '${baseUrl}Subscription/CreatePlan';
   static const String subscribeUrl = '${baseUrl}Subscription/Subscribe';
+    static const String getSubscribationFilesByUserUrl = '${baseUrl}PersonalizedPlan/coach/files';
+
   static const String getSubscriptionPlansUrl =
       '${baseUrl}Subscription/SubscriptionPlans';
   static const String getSubscriptionPlanByCoachUrl =

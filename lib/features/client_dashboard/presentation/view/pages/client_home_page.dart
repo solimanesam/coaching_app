@@ -47,8 +47,8 @@ class ClientHomePage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 30),
                             child: capContainer(
                               context: context,
-                              image: coaches[index].image,
-                              name: "Cap: ${coaches[index].name}",
+                              image: coaches[index].profileImageUrl,
+                              name: "Cap: ${coaches[index].userName}",
                               onTap: () => Get.to(
                                   CapDetails(coachEntity: coaches[index])),
                             )),

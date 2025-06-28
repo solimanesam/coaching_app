@@ -63,6 +63,7 @@ class ProfileController extends GetxController {
       getProfileState = RequestStateEnum.failed;
       update();
     }, (r) {
+      print(r);
       profileInfo = r;
       getProfileState = RequestStateEnum.success;
       update();

@@ -25,6 +25,7 @@ class GetCoachesController extends GetxController {
       getCoachesErrorMessage = l.message;
       print(l.message);
     }, (r) {
+      print(r);
       getCoachesState = RequestStateEnum.success;
       coaches = r;
       print(r);
@@ -34,7 +35,7 @@ class GetCoachesController extends GetxController {
 
   void search({required String string}) {
     searchList = coaches
-        .where((element) => element.name.toString().startsWith(string))
+        .where((element) => element.userName.toString().startsWith(string))
         .toList();
     if (string == '') searchList.clear();
     update();

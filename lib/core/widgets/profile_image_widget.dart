@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/utils/enums.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/Client_dashboard_controller.dart';
@@ -14,20 +12,15 @@ class ProfileImageWidget extends StatelessWidget {
 
   final String? image;
 
+
+
+
   @override
   Widget build(BuildContext context) {
-    final ClientDashboardController controller = Get.find<ClientDashboardController>();
+    final ClientDashboardController controller =
+        Get.find<ClientDashboardController>();
+debugPrint("Image URL: $image");
 
-    Uint8List? imageBytes;
-    if (image != null) {
-      try {
-        // تنظيف بيانات base64
-        final cleanBase64 = image!.contains(',') ? image!.split(',').last : image!;
-        imageBytes = base64Decode(cleanBase64);
-      } catch (e) {
-        imageBytes = null;
-      }
-    }
 
     return SizedBox(
       width: 150,
@@ -48,16 +41,10 @@ class ProfileImageWidget extends StatelessWidget {
               return CircleAvatar(
                 radius: 70,
                 backgroundColor: AppColors.grey,
-                child: imageBytes == null
+               // backgroundImage:image != null ? NetworkImage(image!) : null,
+                child: image == null
                     ? const Icon(Icons.person, size: 100, color: Colors.white)
-                    : ClipOval(
-                        child: Image.memory(
-                          imageBytes,
-                          fit: BoxFit.cover,
-                          width: 140,
-                          height: 140,
-                        ),
-                      ),
+                    : null,
               );
             },
           ),

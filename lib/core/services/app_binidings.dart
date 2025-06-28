@@ -1,6 +1,7 @@
 import 'package:coaching_app/core/services/dependency_injection.dart';
 import 'package:coaching_app/features/auth/presentation/controller/cubit/auth_controller.dart';
 import 'package:coaching_app/features/auth/presentation/controller/cubit/client_information.dart';
+import 'package:coaching_app/features/chat/presentation/controllers/chat_controller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/Client_bottom_nav_controller.dart.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/Client_dashboard_controller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/chat_bot_controller.dart';
@@ -10,6 +11,7 @@ import 'package:coaching_app/features/client_dashboard/presentation/controllers/
 import 'package:coaching_app/features/coach_dashboard/presentation/controller/getx_controllers/create_coach_plan_contrller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/profile_controller.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/controller/getx_controllers/cv_controller.dart';
+import 'package:coaching_app/features/coach_dashboard/presentation/controller/getx_controllers/get_subscribers_by_user.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/controller/getx_controllers/upload_personalized_plan_controller.dart';
 import 'package:coaching_app/features/payment_integration/presentation/controller/stripe_controller.dart';
 import 'package:get/get.dart';
@@ -37,5 +39,9 @@ class AppBinidings extends Bindings {
     Get.lazyPut(() => UploadPersonalizedPlanController(locator(), locator()),
         fenix: true);
     Get.lazyPut(() => ChatBotController(locator()), fenix: true);
+    Get.lazyPut(() => GetSubscriberFilesByUserController(locator()),
+        fenix: true);
+        Get.lazyPut(() => ChatController(chatRepo: locator()), fenix: true);
+
   }
 }

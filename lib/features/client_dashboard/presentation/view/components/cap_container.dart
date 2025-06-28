@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:coaching_app/core/extentions/responsive_extentions.dart';
 import 'package:coaching_app/core/theme/app_colors.dart';
@@ -8,7 +7,7 @@ import 'package:flutter/material.dart';
 GestureDetector capContainer(
     {required BuildContext context,
     required GestureTapCallback onTap,
-    required Uint8List? image,
+    required String? image,
     required String name}) {
   return GestureDetector(
     onTap: onTap,
@@ -18,7 +17,7 @@ GestureDetector capContainer(
       decoration: BoxDecoration(
         image: image != null
             ? DecorationImage(
-                image: MemoryImage(image),
+                image: NetworkImage(image),
                 fit: BoxFit.cover,
               )
             : null, // لو null مش هيحط صورة خالص

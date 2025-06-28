@@ -21,7 +21,7 @@ class SubscriberWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () => Get.to(SubscriberPage(subscriber: subscriber)),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CircleAvatar(
             radius: 25,
@@ -32,36 +32,10 @@ class SubscriberWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  subscriber.name,
-                  style: TextStyles.semiBold18(
-                      context: context, color: AppColors.black),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  subscriber.email,
-                  style: TextStyles.regular12(context),
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Text(
-                      'Weight: ${subscriber.weight} kg',
-                      style: TextStyles.regular12(context),
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      'Height: ${subscriber.height} cm',
-                      style: TextStyles.regular12(context),
-                    ),
-                  ],
-                )
-              ],
-            ),
+          Text(
+            subscriber.name,
+            style: TextStyles.semiBold18(
+                context: context, color: AppColors.black),
           ),
         ],
       ),

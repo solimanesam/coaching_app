@@ -4,6 +4,7 @@ import 'package:coaching_app/core/utils/enums.dart';
 import 'package:coaching_app/core/widgets/custom_snake_bar.dart';
 import 'package:coaching_app/features/coach_dashboard/data/models/upload_personalized_plan_input_model.dart';
 import 'package:coaching_app/features/coach_dashboard/dmain/repos/base_coach_subscription_repo.dart';
+import 'package:coaching_app/features/coach_dashboard/presentation/controller/getx_controllers/get_subscribers_by_user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 
@@ -36,6 +37,7 @@ class UploadPersonalizedPlanController extends GetxController {
         uploadPersonalizedPlanPlanState = RequestStateEnum.success;
         AppSnackBar.show(
             message: "file uploaded successfully", type: SnackBarType.success);
+            Get.find<GetSubscriberFilesByUserController>().getSubscriberByUserFiles(userName:subscriberUserName );
       });
       update();
     } else {

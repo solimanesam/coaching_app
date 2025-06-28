@@ -1,13 +1,50 @@
-import 'dart:typed_data';
-
 import 'package:equatable/equatable.dart';
 
 class CoachEntity extends Equatable {
-  const CoachEntity({required this.image, required this.name});
+  final String? message;
+  final String userName;
+  final String email;
+  final List<String>? roles;
+  final int age;
+  final int weight;
+  final int height;
+  final String gender;
+  final String? profileImageUrl;
+  final String? cvFileName;
+  final String? cvViewUrl;
+  final String? cvDownloadUrl;
+  final DateTime? cvUploadDate;
 
-  final String name;
-  final Uint8List? image;
+  const CoachEntity({
+    this.message,
+    required this.userName,
+    required this.email,
+    this.roles,
+    required this.age,
+    required this.weight,
+    required this.height,
+    required this.gender,
+    this.profileImageUrl,
+    this.cvFileName,
+    this.cvViewUrl,
+    this.cvDownloadUrl,
+    this.cvUploadDate,
+  });
 
   @override
-  List<Object?> get props => [name, image];
+  List<Object?> get props => [
+        message,
+        userName,
+        email,
+        roles,
+        age,
+        weight,
+        height,
+        gender,
+        profileImageUrl,
+        cvFileName,
+        cvViewUrl,
+        cvDownloadUrl,
+        cvUploadDate,
+      ];
 }

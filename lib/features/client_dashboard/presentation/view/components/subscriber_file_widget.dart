@@ -27,11 +27,12 @@ class SubscriberFileWidget extends StatelessWidget {
 
             const SizedBox(height: 8),
 
-            /// Coach Name
-            // Text(
-            //   'Coach: ${file.coachName}',
-            //   style: const TextStyle(fontSize: 16),
-            // ),
+            /// Coach name
+            if(file.coachName  != null) Text(
+              'Coach: ${file.coachName}',
+              style:
+                  TextStyles.semiBold18(context: context, color: Colors.grey),
+            ),
 
             /// Published Date
             Text(
@@ -43,38 +44,53 @@ class SubscriberFileWidget extends StatelessWidget {
             const SizedBox(height: 12),
 
             /// File link & Download button
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                /// File link (truncated)
-                Expanded(
-                  child: TextButton(
-                    onPressed: () => launchLink(file.fileLink),
-                    child: Text(
-                      file.fileLink,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.blue[700],
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                ),
-
-                /// Download Button
-                IconButton(
-                  icon: const Icon(Icons.download),
-                  onPressed: () {
-                    // You can implement actual download logic here using url_launcher or Dio
-                    debugPrint('Downloading from: ${file.downloadLink}');
-                    launchLink(file.downloadLink);
-                  },
-                ),
-              ],
-            ),
+            FileLinkWidget(
+                downloadLink: file.downloadLink!, viewLink: file.fileLink),
           ],
         ),
       ),
+    );
+  }
+}
+
+class FileLinkWidget extends StatelessWidget {
+  const FileLinkWidget({
+    super.key,
+    required this.viewLink,
+    required this.downloadLink,
+  });
+
+  final String viewLink, downloadLink;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        /// File link (truncated)
+        Expanded(
+          child: TextButton(
+            onPressed: () => launchLink(viewLink),
+            child: Text(
+              viewLink,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: Colors.blue[700],
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
+        ),
+
+        /// Download Button
+        IconButton(
+          icon: const Icon(Icons.download),
+          onPressed: () {
+            // You can implement actual download logic here using url_launcher or Dio
+            launchLink(downloadLink);
+          },
+        ),
+      ],
     );
   }
 }

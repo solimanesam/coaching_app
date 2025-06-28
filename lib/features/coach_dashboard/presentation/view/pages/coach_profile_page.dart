@@ -12,6 +12,8 @@ import 'package:coaching_app/features/client_dashboard/presentation/controllers/
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/bottom_sheet_widget.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/list_tile_widget.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/pages/help_centre.dart';
+import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/create_package.dart';
+import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/my_packages.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/upload_certifcate_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,95 +24,110 @@ class CoachProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String?>(
-    future: locator<BaseCache>().getStringFromCache(key: CacheConstant.roleKey),
-    builder: (context, snapshot) {
-      if (!snapshot.hasData) {
-        return const Center(child: CircularProgressIndicator());
-      }
+      future:
+          locator<BaseCache>().getStringFromCache(key: CacheConstant.roleKey),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-      final userType = snapshot.data;
-    final List<Map<String, dynamic>> profileOptions = [
-      {
-        'icon':userType == 'Coach' ? Icons.upload_file_rounded : Icons.lock_outline,
-        'title':userType == 'Coach' ? 'Upload Certificates':'Help center',
-        'page': () =>userType == 'Coach' ? const UploadCertifcatePage() : const HelpCenterScreen(),
-      },
-      {
-        'icon': Icons.edit_note,
-        'title': 'Edit Profile',
-        'page': () => const EditProfilePage(),
-      },
-      
-      // {
-      //   'icon': Icons.lock_outline,
-      //   'title': 'Help center',
-      //   'page': null,
-      // },
-      {
-        'icon': Icons.logout,
-        'title': 'Log out',
-        'page': null,
-      },
-    ];
+        final userType = snapshot.data;
 
-    return Column(
-      children: [
-        GetBuilder<ProfileController>(builder: (profileController) {
-          return getWidgetDependingOnReuestState(
+        return GetBuilder<ProfileController>(
+          builder: (profileController) {
+            final profile = profileController.profileInfo;
+
+            final List<Map<String, dynamic>> profileOptions = [
+              {
+                'icon': userType == 'Coach'
+                    ? Icons.upload_file_rounded
+                    : Icons.lock_outline,
+                'title':
+                    userType == 'Coach' ? 'Upload Certificates' : 'Help center',
+                'page': () => userType == 'Coach'
+                    ? const UploadCertifcatePage()
+                    : const HelpCenterScreen(),
+              },
+              if (userType == 'Coach')
+                {
+                  'icon': Icons.add_box_rounded,
+                  'title': 'Add Package',
+                  'page': () => const CreatePackage(),
+                },
+              if (userType == 'Coach')
+                {
+                  'icon': Icons.folder_copy_outlined,
+                  'title': 'My Packages',
+                  'page': () => MyPackages(
+                        coashName: profile?.userName ?? '',
+                      ),
+                },
+              {
+                'icon': Icons.edit_note,
+                'title': 'Edit Profile',
+                'page': () => const EditProfilePage(),
+              },
+              {
+                'icon': Icons.logout,
+                'title': 'Log out',
+                'page': null,
+              },
+            ];
+
+            return getWidgetDependingOnReuestState(
               requestStateEnum: profileController.getProfileState,
-              widgetIncaseSuccess: profileController.profileInfo == null
-                  ? SizedBox()
-                  : Row(
+              erorrMessage: profileController.getProfileErrorMess,
+              widgetIncaseSuccess: Column(
+                children: [
+                  if (profile != null)
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        ProfileImageWidget(
-                          image: profileController.profileInfo!.image,
+                        ProfileImageWidget(image: profile.image),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(profile.userName,
+                                style: TextStyles.semiBold20(context,
+                                    color: AppColors.black)),
+                            Text(profile.email,
+                                style: TextStyles.quarterBold18(
+                                    context: context, color: AppColors.black)),
+                          ],
                         ),
-                        Column(children: [
-                          Text(
-                            profileController.profileInfo!.userName,
-                            style: TextStyles.semiBold20(context,
-                                color: AppColors.black),
-                          ),
-                          Text(
-                            profileController.profileInfo!.email,
-                            style: TextStyles.quarterBold18(
-                                context: context, color: AppColors.black),
-                          )
-                        ])
                       ],
                     ),
-              erorrMessage: profileController.getProfileErrorMess);
-        }),
-        Spacer(flex: 1,),
-        ...List.generate(
-          profileOptions.length,
-          (index) => ListTileWidget(
-            icon: profileOptions[index]['icon'],
-            title: profileOptions[index]['title'],
-            onTab: () {
-              final page = profileOptions[index]['page'];
-              if (page != null) {
-                Get.to(page); // لاحظ إنها function, مش Widget مباشرة
-              } else {
-                appBottomSheet(
-                  context: context,
-                  text1: 'Log Out',
-                  text2: 'Are you sure you want to log out',
-                  onPressed: () async {
-                      Get.delete<ClientBottomNavController>();
-
-                    await locator<BaseCache>()
-                        .deleteCache(key: CacheConstant.tokenKey);
-                    Get.to(LogInPage());
-                  },
-                );
-              }
-            },
-          ),
-        ),
-        Spacer(flex: 3,),
-      ],
-    );}); 
-    }
+                  const SizedBox(height: 32),
+                  ...profileOptions.map(
+                    (option) => ListTileWidget(
+                      icon: option['icon'],
+                      title: option['title'],
+                      onTab: () {
+                        final page = option['page'];
+                        if (page != null) {
+                          Get.to(page());
+                        } else {
+                          appBottomSheet(
+                            context: context,
+                            text1: 'Log Out',
+                            text2: 'Are you sure you want to log out',
+                            onPressed: () async {
+                              Get.delete<ClientBottomNavController>();
+                              await locator<BaseCache>()
+                                  .deleteCache(key: CacheConstant.tokenKey);
+                              Get.to(const LogInPage());
+                            },
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 }

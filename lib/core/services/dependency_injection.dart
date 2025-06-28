@@ -6,6 +6,8 @@ import 'package:coaching_app/features/auth/data/data_source/auth_local_data_sour
 import 'package:coaching_app/features/auth/data/data_source/remore_data_source/auth_remote_data_source.dart';
 import 'package:coaching_app/features/auth/data/repos/auth_repo.dart';
 import 'package:coaching_app/features/auth/domain/repos/base_auth_repo.dart';
+import 'package:coaching_app/features/chat/data/repos/chat_repo_impl.dart';
+import 'package:coaching_app/features/chat/domain/repos/chat_repo.dart';
 import 'package:coaching_app/features/client_dashboard/data/data_source/remote_data_source/chat_bot_remote_data_source.dart';
 import 'package:coaching_app/features/client_dashboard/data/data_source/remote_data_source/client_subscription_remote_data_source.dart';
 import 'package:coaching_app/features/client_dashboard/data/data_source/remote_data_source/dashboard_remote_data_source.dart';
@@ -41,6 +43,8 @@ class DependencyInjection {
     locator.registerFactory(() => GetCoachPlanByCoachCubit(locator()));
     locator.registerLazySingleton(() => StripeController(locator()));
     ////////////repos
+    locator.registerLazySingleton<ChatRepo>(() => ChatRepoImpl());
+
     locator.registerLazySingleton<BaseChatBotRepo>(
         () => ChatBotRepo(chatBotRemoteDataSource: locator()));
     locator.registerLazySingleton<CvBaseRepo>(

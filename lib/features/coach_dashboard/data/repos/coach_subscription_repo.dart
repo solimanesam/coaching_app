@@ -1,4 +1,5 @@
 import 'package:coaching_app/core/helper_function/handle_server_exception.dart';
+import 'package:coaching_app/features/client_dashboard/domain/entities/subscriber_file_entity.dart';
 import 'package:coaching_app/features/coach_dashboard/data/data_sources/remote_data_source/coach_subscription_remote_data_source.dart';
 import 'package:coaching_app/features/coach_dashboard/data/models/upload_personalized_plan_input_model.dart';
 import 'package:coaching_app/features/coach_dashboard/dmain/entities/subscriber.dart';
@@ -38,11 +39,24 @@ class CoachSubscriptionRepo extends BaseCoachSubscriptionRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> uploadPersonalizedPlan({required UploadPersonalizedPlanInputModel uploadPersonalizedPlanInputModel}) async{
+  Future<Either<Failure, Unit>> uploadPersonalizedPlan(
+      {required UploadPersonalizedPlanInputModel
+          uploadPersonalizedPlanInputModel}) async {
     try {
       await baseCoachSubscriptionRemoteDataSource.uploadPersonalizedPlan(
           uploadPersonalizedPlanInputModel: uploadPersonalizedPlanInputModel);
       return const Right(unit);
+    } catch (e) {
+      return left(handelServerException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<SubscriberFileEntity>>> getSubscriberFilesByUser(
+      {required String userName}) async {
+    try {
+      return right(await baseCoachSubscriptionRemoteDataSource
+          .getSubscriberFilesByUser(userName: userName));
     } catch (e) {
       return left(handelServerException(e));
     }

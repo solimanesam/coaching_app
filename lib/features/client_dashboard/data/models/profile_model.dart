@@ -9,7 +9,7 @@ class ProfileModel extends ProfileEntity {
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
-      image: json['image'],
+      image: json['profileImageUrl'],
       userName: json['userName'],
       email: json['email'],
     );

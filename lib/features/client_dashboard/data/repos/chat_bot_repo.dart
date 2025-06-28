@@ -6,7 +6,7 @@ import 'package:coaching_app/features/client_dashboard/domain/repos/base_chat_bo
 import 'package:dartz/dartz.dart';
 
 class ChatBotRepo extends BaseChatBotRepo {
-  final ChatBotRemoteDataSource chatBotRemoteDataSource;
+  final BaseChatBotRemoteDataSource chatBotRemoteDataSource;
   ChatBotRepo({required this.chatBotRemoteDataSource});
   @override
   Future<Either<Failure, ChatBotResponseEntity>> sendPrombt(
