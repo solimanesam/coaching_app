@@ -5,6 +5,7 @@ class CoachEntity extends Equatable {
   final String userName;
   final String email;
   final List<String>? roles;
+  final String? phoneNumber;
   final int age;
   final int weight;
   final int height;
@@ -16,6 +17,7 @@ class CoachEntity extends Equatable {
   final DateTime? cvUploadDate;
 
   const CoachEntity({
+    this.phoneNumber,
     this.message,
     required this.userName,
     required this.email,

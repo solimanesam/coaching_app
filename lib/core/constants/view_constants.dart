@@ -4,8 +4,8 @@ abstract class ViewConstants {
 
   static const List<String> tellUsAboutYouPageTextFieldsHintTexts = [
     'Your Age',
-    'Your wieght',
-    'Your Hieght'
+    'Your weight',
+    'Your Height'
   ];
   static const String chooseYourGenderPageAppBarTitle = 'Choose Your Gender';
   static const List<String> chooseYourGenderPageCheckBoxSNames = [

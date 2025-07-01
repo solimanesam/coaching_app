@@ -13,10 +13,25 @@ class SubscriberWidget extends StatelessWidget {
 
   final Subscriber subscriber;
 
+  /// دالة لتحويل رابط Google Drive إلى رابط صورة مباشر
+  String getDirectImageLink(String rawUrl) {
+    final idRegExp = RegExp(r'd/([^/]+)');
+    final match = idRegExp.firstMatch(rawUrl);
+    if (match != null) {
+      final fileId = match.group(1);
+      return "https://drive.google.com/uc?export=view&id=$fileId";
+    }
+    return rawUrl; // fallback
+  }
+
   @override
   Widget build(BuildContext context) {
     final String firstLetter =
         subscriber.name.isNotEmpty ? subscriber.name[0].toUpperCase() : '?';
+
+    final String? imageUrl = subscriber.image != null
+        ? getDirectImageLink(subscriber.image!)
+        : null;
 
     return GestureDetector(
       onTap: () => Get.to(SubscriberPage(subscriber: subscriber)),
@@ -26,16 +41,21 @@ class SubscriberWidget extends StatelessWidget {
           CircleAvatar(
             radius: 25,
             backgroundColor: AppColors.primaryColor,
-            child: Text(
-              firstLetter,
-              style: TextStyles.semiBold20(context, color: AppColors.white),
-            ),
+            backgroundImage: imageUrl != null ? NetworkImage(imageUrl) : null,
+            child: imageUrl == null
+                ? Text(
+                    firstLetter,
+                    style: TextStyles.semiBold20(context, color: AppColors.white),
+                  )
+                : null,
           ),
           const SizedBox(width: 12),
           Text(
             subscriber.name,
             style: TextStyles.semiBold18(
-                context: context, color: AppColors.black),
+              context: context,
+              color: AppColors.black,
+            ),
           ),
         ],
       ),

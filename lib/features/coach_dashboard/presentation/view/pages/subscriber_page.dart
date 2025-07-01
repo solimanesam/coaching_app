@@ -11,6 +11,7 @@ import 'package:coaching_app/features/coach_dashboard/presentation/view/componen
 import 'package:coaching_app/features/coach_dashboard/presentation/view/components/subscriber_widget_by_user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SubscriberPage extends StatelessWidget {
   const SubscriberPage({super.key, required this.subscriber});
@@ -61,10 +62,6 @@ class SubscriberPage extends StatelessWidget {
               ),
             ),
 
-
-            
-            
-
             const SizedBox(height: 16),
 
             // Files Display (after pressing button)
@@ -72,42 +69,61 @@ class SubscriberPage extends StatelessWidget {
               builder: (subController) {
                 if (!subController.isPressed ||
                     subController.getSubscriberFilesByUserState == null) {
-                  return customButton(customButtonInputModel: CustomButtonInputModel(
-            context: context,
-            buttonName: 'Load Subscriber files',
-            onPressedFunction: () => Get.find<GetSubscriberFilesByUserController>()
-                  .getSubscriberByUserFiles(userName: subscriber.name)
-                        )); // لا تظهر أي شيء قبل الضغط على الزر
+                  return customButton(
+                      customButtonInputModel: CustomButtonInputModel(
+                          context: context,
+                          buttonName: 'Load Subscriber files',
+                          onPressedFunction: () => Get.find<
+                                  GetSubscriberFilesByUserController>()
+                              .getSubscriberByUserFiles(
+                                  userName: subscriber
+                                      .name))); // لا تظهر أي شيء قبل الضغط على الزر
                 }
-            
+
                 return getWidgetDependingOnReuestState(
                   requestStateEnum:
                       subController.getSubscriberFilesByUserState!,
-                  erorrMessage:
-                      subController.getSubscriberFilesErrorMessage,
-                  widgetIncaseSuccess:
-                      subController.subscriberFiles.isEmpty
-                          ? Center(
-                              child: Text(
-                                'No subscriber files available.',
-                                style: TextStyle(color: AppColors.grey),
-                              ),
-                            )
-                          : Expanded(
-                            child: ListView.separated(
-                                itemCount: subController.subscriberFiles.length,
-                                separatorBuilder: (_, __) =>
-                                    const SizedBox(height: 12),
-                                itemBuilder: (context, index) {
-                                  final file =
-                                      subController.subscriberFiles[index];
-                                  return SubscriberFileWidgetByUser(file: file);
-                                },
-                              ),
+                  erorrMessage: subController.getSubscriberFilesErrorMessage,
+                  widgetIncaseSuccess: subController.subscriberFiles.isEmpty
+                      ? Center(
+                          child: Text(
+                            'No subscriber files available.',
+                            style: TextStyle(color: AppColors.grey),
                           ),
+                        )
+                      : Expanded(
+                          child: ListView.separated(
+                            itemCount: subController.subscriberFiles.length,
+                            separatorBuilder: (_, __) =>
+                                const SizedBox(height: 12),
+                            itemBuilder: (context, index) {
+                              final file = subController.subscriberFiles[index];
+                              return SubscriberFileWidgetByUser(file: file);
+                            },
+                          ),
+                        ),
                 );
               },
             ),
+            Spacer(),
+            if (subscriber.phoneNumber != null)
+              customButton(
+                customButtonInputModel: CustomButtonInputModel(
+                  context: context,
+                  buttonName: 'Chat with Coach',
+                  onPressedFunction: () async {
+                    final phoneNumber = subscriber.phoneNumber!;
+                    final Uri whatsappUri = Uri.parse(
+                        'https://wa.me/${phoneNumber.replaceAll('+', '')}');
+                    if (await canLaunchUrl(whatsappUri)) {
+                      await launchUrl(whatsappUri,
+                          mode: LaunchMode.externalApplication);
+                    } else {
+                      throw 'Could not launch $whatsappUri';
+                    }
+                  },
+                ),
+              ),
           ],
         ),
       ),

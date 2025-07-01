@@ -22,6 +22,7 @@ class GetSubscribersCubit extends Cubit<GetSubscribersState> {
           getSubscribersState: RequestStateEnum.failed,
           getSubscribersErrorMessage: l.message));
     }, (r) {
+      print(r);
       emit(GetSubscribersState(
           getSubscribersState: RequestStateEnum.success, subscribers: r));
     });

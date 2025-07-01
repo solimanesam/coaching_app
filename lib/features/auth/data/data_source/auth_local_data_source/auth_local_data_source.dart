@@ -7,14 +7,13 @@ abstract class AuthLocalDataSource {
 
   Future<void> cacheRole(String role);
   Future<String?> getRole();
+  Future<void> cacheUserName(String userName);
 
   Future<void> clearAuthData();
 }
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   final BaseCache cache;
-
-  
 
   AuthLocalDataSourceImpl({required this.cache});
 
@@ -42,5 +41,11 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   Future<void> clearAuthData() async {
     await cache.deleteCache(key: CacheConstant.tokenKey);
     await cache.deleteCache(key: CacheConstant.roleKey);
+  }
+
+  @override
+  Future<void> cacheUserName(String userName) async {
+    await cache.insertStringToCache(
+        key: CacheConstant.userNameKey, value: userName);
   }
 }

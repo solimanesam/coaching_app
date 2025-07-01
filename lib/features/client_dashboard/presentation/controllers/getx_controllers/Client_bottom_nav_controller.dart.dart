@@ -6,15 +6,13 @@ class ClientBottomNavController extends GetxController {
     const BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: ''),
     const BottomNavigationBarItem(icon: Icon(Icons.work_outline), label: ''),
     const BottomNavigationBarItem(icon: Icon(Icons.fitness_center), label: ''),
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.chat_bubble_outline), label: ''),
+    
     const BottomNavigationBarItem(icon: Icon(Icons.auto_awesome), label: ''),
     const BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
   ];
   final List<BottomNavigationBarItem> coashBottomNavigationBarItems = [
     const BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: ''),
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.chat_bubble_outline), label: ''),
+   
     const BottomNavigationBarItem(icon: Icon(Icons.group), label: ''),
     const BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
   ];

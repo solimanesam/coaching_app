@@ -1,7 +1,9 @@
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/theme/text_styles.dart';
+import 'package:coaching_app/core/widgets/custom_button.dart';
 import 'package:coaching_app/core/widgets/get_widget_depending_on_reuest_state.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/get_subscriber_files_controller.dart';
+import 'package:coaching_app/features/client_dashboard/presentation/home.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/subscriber_file_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,22 +19,23 @@ class SubscriberFilesPage extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-               Text(
+              Text(
                 'Subscriber Files',
                 style: TextStyles.semiBold32(context, color: AppColors.black),
               ),
-              getWidgetDependingOnReuestState(
-                requestStateEnum: controller.getSubscriberFilesState,
-                erorrMessage: controller.getSubscriberFilesErrorMessage,
-                widgetIncaseSuccess: controller.subscriberFiles.isEmpty
-                    ? Center(
-                        child: Text(
-                          'No subscriber files available.',
-                          style: TextStyle(color: AppColors.grey),
-                        ),
-                      )
-                    : Expanded(
-                      child: ListView.separated(
+              const SizedBox(height: 16),
+              Expanded(
+                child: getWidgetDependingOnReuestState(
+                  requestStateEnum: controller.getSubscriberFilesState,
+                  erorrMessage: controller.getSubscriberFilesErrorMessage,
+                  widgetIncaseSuccess: controller.subscriberFiles.isEmpty
+                      ? Center(
+                          child: Text(
+                            'No subscriber files available.',
+                            style: TextStyle(color: AppColors.grey),
+                          ),
+                        )
+                      : ListView.separated(
                           itemCount: controller.subscriberFiles.length,
                           separatorBuilder: (_, __) => const SizedBox(height: 12),
                           itemBuilder: (context, index) {
@@ -40,7 +43,17 @@ class SubscriberFilesPage extends StatelessWidget {
                             return SubscriberFileWidget(file: file);
                           },
                         ),
-                    ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              customButton(
+                customButtonInputModel: CustomButtonInputModel(
+                  context: context,
+                  buttonName: 'Workouts',
+                  onPressedFunction: () {
+                    Get.to(HomeScreen());
+                  },
+                ),
               ),
             ],
           ),

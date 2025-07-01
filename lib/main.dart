@@ -4,12 +4,10 @@ import 'package:coaching_app/core/services/cache_service.dart';
 import 'package:coaching_app/core/services/dependency_injection.dart';
 import 'package:coaching_app/core/services/payment_dependency_injection.dart';
 import 'package:coaching_app/core/theme/app_theme.dart';
-import 'package:coaching_app/features/chat/data/models/message_model.dart';
 import 'package:coaching_app/features/splashscreen/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/adapters.dart';
 
 
 void main() async {
@@ -18,9 +16,7 @@ void main() async {
   PaymentDependencyInjection.init();
   await locator<BaseCache>().cacheInitialization();
   Stripe.publishableKey = SecretKeys.stripePublishKey;
-  await Hive.initFlutter();
-  Hive.registerAdapter(MessageModelAdapter());
-  await Hive.openBox<MessageModel>('chatBox');
+  
 
   GetMaterialApp app = GetMaterialApp(
     debugShowCheckedModeBanner: false,

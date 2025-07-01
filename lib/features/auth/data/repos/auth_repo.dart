@@ -30,6 +30,7 @@ class AuthRepo extends BaseAuthRepo {
           await authRemoteDataSource.logIn(authParameter: authParameter);
       await authLocalDataSource.cacheToken(result.token);
       await authLocalDataSource.cacheRole(result.role);
+      await authLocalDataSource.cacheUserName(result.userName);
       return right(result);
     } catch (e) {
       return left(handelServerException(e));

@@ -1,17 +1,14 @@
 import 'package:coaching_app/core/extentions/responsive_extentions.dart';
-import 'package:coaching_app/core/services/dependency_injection.dart';
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/widgets/custom_button.dart';
-import 'package:coaching_app/features/chat/presentation/controllers/chat_controller.dart';
-import 'package:coaching_app/features/chat/presentation/pages/chat_page.dart';
 import 'package:coaching_app/features/client_dashboard/data/models/subscription_plan_by_coach_input_model.dart';
 import 'package:coaching_app/features/client_dashboard/domain/entities/coash_entity.dart';
-import 'package:coaching_app/features/client_dashboard/presentation/controllers/profile_controller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/custom_row_for_cap_details.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/subscriber_file_widget.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/packages_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CapDetails extends StatelessWidget {
   const CapDetails({super.key, required this.coachEntity});
@@ -20,7 +17,6 @@ class CapDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
- 
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(30),
@@ -130,26 +126,25 @@ class CapDetails extends StatelessWidget {
                   ),
                 ),
               ),
-              customButton(
-  customButtonInputModel: CustomButtonInputModel(
-    context: context,
-    buttonName: 'Chat with Coach',
-    onPressedFunction: () {
-      final chatController = Get.find<ChatController>();
-      chatController.initConnection(
-        currentUser:'soliman' ,
-        receiverUser: coachEntity.userName,
-      );
-
-      Get.to(() => ChatPage(
-        currentUsername:'soliman',
-        receiverUsername: coachEntity.userName,
-        chatController: chatController,
-      ));
-    },
-  ),
-),
-
+              SizedBox(height: 10),
+              if (coachEntity.phoneNumber != null)
+                customButton(
+                  customButtonInputModel: CustomButtonInputModel(
+                    context: context,
+                    buttonName: 'Chat with Coach',
+                    onPressedFunction: () async {
+                      final phoneNumber = coachEntity.phoneNumber!;
+                      final Uri whatsappUri = Uri.parse(
+                          'https://wa.me/${phoneNumber.replaceAll('+', '')}');
+                      if (await canLaunchUrl(whatsappUri)) {
+                        await launchUrl(whatsappUri,
+                            mode: LaunchMode.externalApplication);
+                      } else {
+                        throw 'Could not launch $whatsappUri';
+                      }
+                    },
+                  ),
+                ),
             ],
           ),
         ),

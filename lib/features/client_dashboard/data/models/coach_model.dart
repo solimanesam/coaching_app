@@ -1,24 +1,25 @@
 import 'package:coaching_app/features/client_dashboard/domain/entities/coash_entity.dart';
 
 class CoachModel extends CoachEntity {
-  const CoachModel({
-    super.message,
-    required super.userName,
-    required super.email,
-    super.roles,
-    required super.age,
-    required super.weight,
-    required super.height,
-    required super.gender,
-    super.profileImageUrl,
-    super.cvFileName,
-    super.cvViewUrl,
-    super.cvDownloadUrl,
-    super.cvUploadDate,
-  });
+  const CoachModel(
+      {super.message,
+      required super.userName,
+      required super.email,
+      super.roles,
+      required super.age,
+      required super.weight,
+      required super.height,
+      required super.gender,
+      super.profileImageUrl,
+      super.cvFileName,
+      super.cvViewUrl,
+      super.cvDownloadUrl,
+      super.cvUploadDate,
+      super.phoneNumber});
 
   factory CoachModel.fromJson(Map<String, dynamic> json) {
     return CoachModel(
+      phoneNumber: json['phoneNumber'],
       message: json['message'],
       userName: json['userName'] ?? '',
       email: json['email'] ?? '',

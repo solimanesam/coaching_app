@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coaching_app/core/theme/app_colors.dart';
 import 'package:coaching_app/core/utils/enums.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/Client_dashboard_controller.dart';
@@ -12,15 +13,29 @@ class ProfileImageWidget extends StatelessWidget {
 
   final String? image;
 
+  /// دالة لتحويل رابط Google Drive إلى رابط مباشر لعرض الصورة
+  String? getFixedImageUrl(String? url) {
+    if (url == null) return null;
 
-
+    if (url.contains("drive.google.com")) {
+      final match = RegExp(r'd/([^/]+)').firstMatch(url);
+      if (match != null && match.groupCount >= 1) {
+        final id = match.group(1);
+        return "https://drive.google.com/uc?export=view&id=$id";
+      }
+    }
+    return url;
+  }
 
   @override
   Widget build(BuildContext context) {
     final ClientDashboardController controller =
         Get.find<ClientDashboardController>();
-debugPrint("Image URL: $image");
 
+    final String? fixedUrl = getFixedImageUrl(image);
+
+    debugPrint("Original Image URL: $image");
+    debugPrint("Fixed Image URL: $fixedUrl");
 
     return SizedBox(
       width: 150,
@@ -41,8 +56,10 @@ debugPrint("Image URL: $image");
               return CircleAvatar(
                 radius: 70,
                 backgroundColor: AppColors.grey,
-               // backgroundImage:image != null ? NetworkImage(image!) : null,
-                child: image == null
+                backgroundImage: fixedUrl != null
+                    ? CachedNetworkImageProvider(fixedUrl)
+                    : null,
+                child: fixedUrl == null
                     ? const Icon(Icons.person, size: 100, color: Colors.white)
                     : null,
               );

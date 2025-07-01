@@ -7,13 +7,13 @@ import 'package:coaching_app/core/theme/text_styles.dart';
 import 'package:coaching_app/core/widgets/get_widget_depending_on_reuest_state.dart';
 import 'package:coaching_app/core/widgets/profile_image_widget.dart';
 import 'package:coaching_app/features/auth/presentation/view/pages/log_in_page.dart';
+import 'package:coaching_app/features/auth/presentation/view/pages/phone_page.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/getx_controllers/Client_bottom_nav_controller.dart.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/controllers/profile_controller.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/bottom_sheet_widget.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/components/list_tile_widget.dart';
 import 'package:coaching_app/features/client_dashboard/presentation/view/pages/help_centre.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/create_package.dart';
-import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/my_packages.dart';
 import 'package:coaching_app/features/coach_dashboard/presentation/view/pages/upload_certifcate_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,18 +54,16 @@ class CoachProfilePage extends StatelessWidget {
                   'title': 'Add Package',
                   'page': () => const CreatePackage(),
                 },
-              if (userType == 'Coach')
-                {
-                  'icon': Icons.folder_copy_outlined,
-                  'title': 'My Packages',
-                  'page': () => MyPackages(
-                        coashName: profile?.userName ?? '',
-                      ),
-                },
+             
               {
                 'icon': Icons.edit_note,
                 'title': 'Edit Profile',
                 'page': () => const EditProfilePage(),
+              },
+              {
+                'icon': Icons.phone,
+                'title': 'Update Phone',
+                'page': () =>  UpdatePhonePage(),
               },
               {
                 'icon': Icons.logout,

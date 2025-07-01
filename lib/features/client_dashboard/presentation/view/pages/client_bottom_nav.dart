@@ -21,7 +21,6 @@ class ClientDashboard extends StatelessWidget {
       const ClientHomePage(),
       const SubscriptionPlansPage(),
       const SubscriberFilesPage(),
-      Text('1'),
       const ChatBotWidget(),
       const CoachProfilePage()
     ]);
